@@ -1,56 +1,67 @@
-import { useEffect, useState } from 'react';
 import { siteConfig, navigationConfig } from '../config';
+import { useLang, LANGUAGES, LANG_LABELS } from '../i18n';
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { lang, setLang } = useLang();
+  const nav = navigationConfig[lang];
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  if (!siteConfig.brandName && navigationConfig.links.length === 0) {
+  if (!siteConfig.brandName && nav.links.length === 0) {
     return null;
   }
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-colors duration-500"
+    <div
+      className="pointer-events-auto flex items-center justify-between"
       style={{
-        height: 80,
-        padding: '0 5vw',
-        backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(8px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+        width: '100%',
+        padding: '16px 30px',
+        borderRadius: 20,
+        background: 'rgba(255, 255, 255, 0.04)',
+        backdropFilter: 'blur(14px) saturate(120%)',
+        WebkitBackdropFilter: 'blur(14px) saturate(120%)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 8px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
       }}
     >
       <a
         href="#hero"
         onClick={(e) => handleClick(e, '#hero')}
-        className="text-white no-underline"
-        style={{
-          fontFamily: "'GeistMono', monospace",
-          fontSize: 18,
-          fontWeight: 400,
-          letterSpacing: '-0.5px',
-        }}
+        className="flex items-center no-underline"
+        aria-label={siteConfig.brandName}
+        style={{ gap: 12 }}
       >
-        {siteConfig.brandName}
+        <img
+          src="/logo.png"
+          alt={siteConfig.brandName}
+          style={{
+            height: 28,
+            width: 'auto',
+            display: 'block',
+          }}
+        />
+        <span
+          style={{
+            fontFamily: "'GeistMono', monospace",
+            fontWeight: 300,
+            fontSize: 13,
+            letterSpacing: '4px',
+            textTransform: 'uppercase',
+            color: 'rgba(218, 218, 218, 0.6)',
+          }}
+        >
+          {siteConfig.brandName}
+        </span>
       </a>
 
-      <div className="hidden md:flex items-center" style={{ gap: 40 }}>
-        {navigationConfig.links.map((link) => (
+      <div className="flex items-center whitespace-nowrap" style={{ gap: 28 }}>
+        {nav.links.map((link) => (
           <a
             key={link.label}
             href={link.href}
@@ -60,17 +71,56 @@ export default function Navigation() {
             {link.label}
           </a>
         ))}
+        {/* Language switcher */}
+        <label className="relative" style={{ display: 'inline-flex', alignItems: 'center' }}>
+          <span className="sr-only">{nav.languageLabel}</span>
+          <select
+            aria-label={nav.languageLabel}
+            value={lang}
+            onChange={(e) => setLang(e.target.value as (typeof LANGUAGES)[number])}
+            className="nav-link"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              appearance: 'none',
+              WebkitAppearance: 'none',
+              paddingRight: 16,
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              color: 'inherit',
+              outline: 'none',
+            }}
+          >
+            {LANGUAGES.map((code) => (
+              <option
+                key={code}
+                value={code}
+                style={{
+                  backgroundColor: '#171717',
+                  color: '#e8e8e8',
+                }}
+              >
+                {LANG_LABELS[code]}
+              </option>
+            ))}
+          </select>
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              pointerEvents: 'none',
+              fontSize: 10,
+              color: 'rgba(218, 218, 218, 0.6)',
+            }}
+          >
+            ▾
+          </span>
+        </label>
       </div>
-
-      {navigationConfig.ctaText && (
-        <a
-          href="#footer"
-          onClick={(e) => handleClick(e, '#footer')}
-          className="nav-link hidden md:inline-block"
-        >
-          {navigationConfig.ctaText}
-        </a>
-      )}
-    </nav>
+    </div>
   );
 }

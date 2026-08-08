@@ -9,7 +9,7 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const FALL_SPEED = 1.0;
-  const COLUMN_DENSITY = 0.7;
+  const COLUMN_DENSITY = 0.02;
   const FONT_SIZE = Math.max(14, Math.round(16));
   const WAVE_RESOLUTION = 4;
   const MAX_RIPPLES = 40;
@@ -70,6 +70,8 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   let waterSurface = 0;
   let ripples: Ripple[] = [];
   let wavePoints: WavePoint[] = [];
+  // Pause rendering when the hero leaves the viewport or the tab is hidden.
+  const visibleRef = { current: true };
 
   function createColumn(index: number, scatter: boolean): Column {
     const length = 12 + Math.floor(Math.random() * 20);
@@ -105,7 +107,7 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   }
 
   function initSystems() {
-    waterSurface = height * 0.78;
+    waterSurface = height * 0.92;
     const colCount = Math.floor(width / FONT_SIZE);
     columns = Array.from({ length: colCount }, (_, i) => createColumn(i, true));
     const waveCount = Math.ceil(width / WAVE_RESOLUTION) + 1;
@@ -113,9 +115,11 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   }
 
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
+    // Cap DPR at 1.5 — full quality is invisible on retina, but pixel
+    // count (and fill cost) drops ~44% vs DPR 2.
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = canvas.offsetWidth;
+    height = canvas.offsetHeight;
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     canvas.style.width = width + 'px';
@@ -149,8 +153,23 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   }
 
   let lastTime = 0;
+  let lastFrameTime = 0;
+  // Throttle to ~30fps: full-speed rAF is unnecessary for falling glyphs
+  // and roughly halves CPU usage.
+  const FRAME_INTERVAL = 1000 / 30;
 
   function render(timestamp: number) {
+    if (!visibleRef.current) {
+      animationFrameId = requestAnimationFrame(render);
+      return;
+    }
+    const elapsed = timestamp - lastFrameTime;
+    if (elapsed < FRAME_INTERVAL) {
+      animationFrameId = requestAnimationFrame(render);
+      return;
+    }
+    lastFrameTime = timestamp;
+
     const dt = Math.min((timestamp - (lastTime || timestamp)) / 1000, 0.05);
     lastTime = timestamp;
     const time = timestamp / 1000;
@@ -261,15 +280,14 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
         ctx.fillStyle = tint;
         if (j === 0) {
           // Head of the stream: official AI model logo in its original colors,
-          // 50% larger than glyphs, with the same brightness falloff & glow.
+          // 50% larger than glyphs. No shadowBlur — it's a major perf cost at
+          // this many drawImage calls per frame.
           const img = logoImages[col.logo % logoImages.length];
           if (img.complete && img.naturalWidth > 0) {
             const logoSize = FONT_SIZE * 1.2;
             ctx.save();
             ctx.translate(col.x + FONT_SIZE * 0.5, charY + FONT_SIZE * 0.5);
             ctx.globalAlpha = brightness;
-            ctx.shadowColor = 'rgba(255, 220, 160, 0.6)';
-            ctx.shadowBlur = 8;
             ctx.drawImage(img, -logoSize / 2, -logoSize / 2, logoSize, logoSize);
             ctx.restore();
           }
@@ -342,13 +360,30 @@ function initAmberCascades(canvas: HTMLCanvasElement) {
   canvas.addEventListener('click', handleInteract);
   canvas.addEventListener('touchstart', handleInteract as EventListener, { passive: false });
 
+  // Pause when scrolled out of view
+  const io = new IntersectionObserver(
+    (entries) => {
+      visibleRef.current = entries.some((e) => e.isIntersecting) && !document.hidden;
+    },
+    { threshold: 0 }
+  );
+  io.observe(canvas);
+  // Pause when the tab is hidden
+  const onVisibility = () => {
+    visibleRef.current = !document.hidden;
+  };
+  document.addEventListener('visibilitychange', onVisibility);
+
   resize();
+  lastFrameTime = performance.now();
   animationFrameId = requestAnimationFrame(render);
 
   return () => {
     window.removeEventListener('resize', resize);
     canvas.removeEventListener('click', handleInteract);
     canvas.removeEventListener('touchstart', handleInteract as EventListener);
+    document.removeEventListener('visibilitychange', onVisibility);
+    io.disconnect();
     cancelAnimationFrame(animationFrameId);
   };
 }

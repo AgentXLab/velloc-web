@@ -1,58 +1,76 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { researchConfig } from '../config';
+import { marketplaceConfig as marketplaceConfigs } from '../config';
+import { useLang } from '../i18n';
 
 export default function AlumniArchives() {
-  const gridRef = useRef<HTMLDivElement>(null);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { lang } = useLang();
+  const marketplaceConfig = marketplaceConfigs[lang];
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const items = itemRefs.current.filter(Boolean) as HTMLDivElement[];
+    const section = sectionRef.current;
+    const text = textRef.current;
+    if (!section) return;
+    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    items.forEach((item) => {
-      gsap.set(item, { opacity: 0, y: 30 });
+    if (text) {
+      gsap.set(text, { opacity: 0, y: 40 });
+    }
+    cards.forEach((card) => {
+      gsap.set(card, { opacity: 0, y: 30 });
     });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const idx = items.indexOf(entry.target as HTMLDivElement);
-            gsap.to(entry.target, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              delay: (idx % 4) * 0.1,
-              ease: 'power2.out',
-            });
+            if (entry.target === section) {
+              if (text) {
+                gsap.to(text, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' });
+              }
+              cards.forEach((card) => {
+                gsap.to(card, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.8,
+                  delay: 0.2 + cards.indexOf(card) * 0.12,
+                  ease: 'power2.out',
+                });
+              });
+            }
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
-    items.forEach((item) => observer.observe(item));
+    observer.observe(section);
+    cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
   }, []);
 
-  if (!researchConfig.sectionLabel && researchConfig.projects.length === 0) {
+  if (!marketplaceConfig.sectionLabel && !marketplaceConfig.title) {
     return null;
   }
 
   return (
     <section
-      id="alumni"
+      id="marketplace"
+      ref={sectionRef}
       style={{
-        padding: '150px 5vw',
+        padding: '150px 5vw 80px',
         background: '#0a0a0a',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-        {researchConfig.sectionLabel && (
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        {marketplaceConfig.sectionLabel && (
           <div
             className="mb-6"
             style={{
@@ -65,7 +83,7 @@ export default function AlumniArchives() {
               opacity: 0.6,
             }}
           >
-            {researchConfig.sectionLabel}
+            {marketplaceConfig.sectionLabel}
           </div>
         )}
         <div
@@ -77,89 +95,99 @@ export default function AlumniArchives() {
           }}
         />
 
-        <div
-          ref={gridRef}
-          className="grid grid-cols-2 md:grid-cols-4"
-          style={{ gap: 0 }}
-        >
-          {researchConfig.projects.map((project, i) => (
-            <div
-              key={`${project.title}-${i}`}
-              ref={(el) => { itemRefs.current[i] = el; }}
-              className="group cursor-pointer"
+        <div ref={textRef} className="flex flex-col" style={{ gap: 24 }}>
+          {marketplaceConfig.title && (
+            <h2
               style={{
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRight: (i + 1) % 4 !== 0 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
-                padding: '24px 20px',
+                fontFamily: "'EB Garamond', serif",
+                fontWeight: 400,
+                fontSize: 'clamp(36px, 4.5vw, 72px)',
+                lineHeight: 1.1,
+                letterSpacing: '-1.2px',
+                color: '#ffffff',
+                margin: 0,
+                textWrap: 'balance',
               }}
             >
-              <div
-                className="relative overflow-hidden mb-4"
-                style={{ aspectRatio: '1/1' }}
-              >
-                {project.image && (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-700"
+              {marketplaceConfig.title}
+            </h2>
+          )}
+          {marketplaceConfig.description && (
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 200,
+                fontSize: 17,
+                lineHeight: 1.8,
+                color: '#dadada',
+                margin: 0,
+                maxWidth: 600,
+                textWrap: 'pretty',
+              }}
+            >
+              {marketplaceConfig.description}
+            </p>
+          )}
+
+          {marketplaceConfig.entries.length > 0 && (
+            <div
+              className="grid grid-cols-1 md:grid-cols-2"
+              style={{ gap: 28, marginTop: 32, maxWidth: 900 }}
+            >
+              {marketplaceConfig.entries.map((entry, i) => (
+                <div
+                  key={entry.title}
+                  ref={(el) => { cardRefs.current[i] = el; }}
+                  className="flex flex-col"
+                  style={{
+                    padding: 'clamp(24px, 2.5vw, 36px)',
+                    borderRadius: 16,
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    backdropFilter: 'blur(10px) saturate(120%)',
+                    WebkitBackdropFilter: 'blur(10px) saturate(120%)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                    minHeight: 180,
+                    transition: 'border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(200, 170, 130, 0.35)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <h3
                     style={{
-                      opacity: 0.5,
-                      filter: 'grayscale(100%)',
+                      fontFamily: "'EB Garamond', serif",
+                      fontWeight: 400,
+                      fontSize: 'clamp(24px, 1.8vw, 30px)',
+                      lineHeight: 1.2,
+                      color: '#ffffff',
+                      margin: '0 0 14px 0',
                     }}
-                    onMouseEnter={(e) => {
-                      (e.target as HTMLImageElement).style.opacity = '1';
-                      (e.target as HTMLImageElement).style.filter = 'grayscale(0%)';
-                      (e.target as HTMLImageElement).style.transform = 'scale(1.04)';
+                  >
+                    {entry.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 200,
+                      fontSize: 15,
+                      lineHeight: 1.8,
+                      color: '#dadada',
+                      margin: 0,
+                      textWrap: 'pretty',
                     }}
-                    onMouseLeave={(e) => {
-                      (e.target as HTMLImageElement).style.opacity = '0.5';
-                      (e.target as HTMLImageElement).style.filter = 'grayscale(100%)';
-                      (e.target as HTMLImageElement).style.transform = 'scale(1)';
-                    }}
-                    loading="lazy"
-                  />
-                )}
-              </div>
-              <h4
-                style={{
-                  fontFamily: "'EB Garamond', serif",
-                  fontWeight: 400,
-                  fontSize: 18,
-                  color: '#ffffff',
-                  margin: '0 0 6px 0',
-                  lineHeight: 1.3,
-                }}
-              >
-                {project.title}
-              </h4>
-              <div
-                className="flex items-center justify-between"
-              >
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 200,
-                    fontSize: 12,
-                    color: '#dadada',
-                    opacity: 0.6,
-                  }}
-                >
-                  {project.discipline}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Fira Code', monospace",
-                    fontWeight: 400,
-                    fontSize: 11,
-                    color: '#dadada',
-                    opacity: 0.4,
-                  }}
-                >
-                  {project.year}
-                </span>
-              </div>
+                  >
+                    {entry.description}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
     </section>
