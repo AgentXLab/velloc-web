@@ -1,13 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import AmberCascades from './AmberCascades';
-import { siteConfig, capabilityDetailConfig } from '../config';
-
-const SLUGS = Object.keys(capabilityDetailConfig.capabilities);
+import { siteConfig, siteStrings } from '../config';
+import { capabilityDetailConfig as capabilityDetailConfigs } from '../content/capabilities';
+import { useLang } from '../i18n';
 
 export default function CapabilityDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { lang } = useLang();
+  const capabilityDetailConfig = capabilityDetailConfigs[lang];
   const data = slug ? capabilityDetailConfig.capabilities[slug] : null;
+
+  useEffect(() => {
+    document.title = siteStrings[lang].title;
+  }, [lang]);
 
   if (!data) {
     return (
@@ -17,9 +24,10 @@ export default function CapabilityDetail() {
     );
   }
 
-  const currentIndex = SLUGS.indexOf(slug!);
-  const prevSlug = currentIndex > 0 ? SLUGS[currentIndex - 1] : null;
-  const nextSlug = currentIndex < SLUGS.length - 1 ? SLUGS[currentIndex + 1] : null;
+  const slugs = Object.keys(capabilityDetailConfig.capabilities);
+  const currentIndex = slugs.indexOf(slug!);
+  const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
+  const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
 
   return (
     <div style={{ background: '#0a0a0a', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>

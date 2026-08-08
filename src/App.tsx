@@ -1,13 +1,20 @@
 import { Routes, Route } from 'react-router-dom';
-import Navigation from './sections/Navigation';
+import { useEffect } from 'react';
 import Hero from './sections/Hero';
 import Curriculum from './sections/Curriculum';
 import CinematicVision from './sections/CinematicVision';
 import AlumniArchives from './sections/AlumniArchives';
 import Footer from './sections/Footer';
 import CapabilityDetail from './sections/CapabilityDetail';
+import { siteStrings } from './config';
+import { useLang } from './i18n';
 
 function HomePage() {
+  const { lang } = useLang();
+  useEffect(() => {
+    document.title = siteStrings[lang].title;
+  }, [lang]);
+
   return (
     <div
       style={{
@@ -16,8 +23,6 @@ function HomePage() {
         overflowX: 'hidden',
       }}
     >
-      <Navigation />
-
       <main>
         <Hero />
         <Curriculum />
