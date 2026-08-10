@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { KeyRound, Database, Puzzle } from 'lucide-react';
+import { KeyRound, Database, Puzzle, Github } from 'lucide-react';
 import { featuresConfig as featuresConfigs, interpolate } from '../config';
 import { mockScreenshotConfig as mockScreenshotConfigs } from '../content/capabilities';
 import { useLang } from '../i18n';
@@ -215,6 +215,25 @@ function MockScreenshot({ id }: { id: string }) {
                 </div>
                 <span style={{ fontSize: 11.5, color: 'rgba(200,170,130,0.85)', ...common, width: 52, textAlign: 'right' }}>{row.model}</span>
               </div>
+            </div>
+          ))}
+        </div>
+      );
+    case 'open-by-design':
+      return (
+        <div className="flex flex-col" style={{ gap: 12 }}>
+          <div style={{ fontSize: 15, color: '#ffffff', fontWeight: 300, ...common }}>Open source</div>
+          {['Agent', 'UI', 'Tools', 'Memory', 'Providers', 'Skills', 'Plugins'].map((tag) => (
+            <div
+              key={tag}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10,
+                padding: '10px 12px', background: 'rgba(255,255,255,0.03)',
+              }}
+            >
+              <Github size={13} color="#b5a48a" aria-hidden="true" />
+              <span style={{ fontSize: 12, color: 'rgba(230,230,230,0.9)', ...common }}>{tag}</span>
             </div>
           ))}
         </div>

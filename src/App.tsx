@@ -4,6 +4,7 @@ import Hero from './sections/Hero';
 import Curriculum from './sections/Curriculum';
 import CinematicVision from './sections/CinematicVision';
 import AlumniArchives from './sections/AlumniArchives';
+import OpenSource from './sections/OpenSource';
 import Footer from './sections/Footer';
 import CapabilityDetail from './sections/CapabilityDetail';
 import { siteStrings } from './config';
@@ -28,6 +29,7 @@ function HomePage() {
         <Curriculum />
         <CinematicVision />
         <AlumniArchives />
+        <OpenSource />
         <Footer />
       </main>
     </div>

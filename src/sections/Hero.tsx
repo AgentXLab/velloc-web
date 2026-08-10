@@ -1,4 +1,4 @@
-import { Download, ArrowRight } from 'lucide-react';
+import { Download, ArrowRight, Github } from 'lucide-react';
 import AmberCascades from './AmberCascades';
 import Navigation from './Navigation';
 import { heroConfig as heroConfigs } from '../config';
@@ -18,6 +18,8 @@ export default function Hero() {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const isSecondaryExternal = heroConfig.secondaryCta.href.startsWith('http');
 
   return (
     <section
@@ -266,6 +268,8 @@ export default function Hero() {
               <a
                 href={heroConfig.secondaryCta.href}
                 onClick={(e) => handleSecondaryClick(e, heroConfig.secondaryCta.href)}
+                target={isSecondaryExternal ? '_blank' : undefined}
+                rel={isSecondaryExternal ? 'noopener noreferrer' : undefined}
                 aria-label={heroConfig.secondaryCta.text}
                 style={{
                   display: 'inline-flex',
@@ -296,6 +300,9 @@ export default function Hero() {
                   e.currentTarget.style.background = 'transparent';
                 }}
               >
+                {isSecondaryExternal ? (
+                  <Github size={15} strokeWidth={2} aria-hidden="true" />
+                ) : null}
                 {heroConfig.secondaryCta.text}
                 <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
               </a>

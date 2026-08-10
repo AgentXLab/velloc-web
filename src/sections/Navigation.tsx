@@ -65,10 +65,15 @@ export default function Navigation() {
           <a
             key={link.label}
             href={link.href}
-            onClick={(e) => handleClick(e, link.href)}
+            onClick={(e) => {
+              if (!link.external) handleClick(e, link.href);
+            }}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
             className="nav-link"
           >
             {link.label}
+            {link.external && ' ↗'}
           </a>
         ))}
         {/* Language switcher */}

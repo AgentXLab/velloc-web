@@ -24,6 +24,9 @@ export const siteConfig: SiteConfig = {
   brandName: 'Velloc Code',
 };
 
+/** Shared across nav, hero, features, and the open-source section — one place to update. */
+export const GITHUB_REPO_URL = 'https://github.com/AgentXLab/velloc-bootstrap';
+
 /** Interpolate `{name}` placeholders in a catalog value. */
 export function interpolate(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, key) =>
@@ -38,6 +41,7 @@ export function interpolate(template: string, vars: Record<string, string | numb
 export interface NavLink {
   label: string;
   href: string;
+  external?: boolean;
 }
 
 export interface NavigationConfig {
@@ -54,6 +58,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Features', href: '#features' },
       { label: 'Models', href: '#models' },
       { label: 'Extensions', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Download',
     ctaHref: '/download/install.exe',
@@ -64,6 +69,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: '功能', href: '#features' },
       { label: '模型', href: '#models' },
       { label: '扩展', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: '下载',
     ctaHref: '/download/install.exe',
@@ -74,6 +80,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Características', href: '#features' },
       { label: 'Modelos', href: '#models' },
       { label: 'Extensiones', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Descargar',
     ctaHref: '/download/install.exe',
@@ -84,6 +91,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Fonctionnalités', href: '#features' },
       { label: 'Modèles', href: '#models' },
       { label: 'Extensions', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Télécharger',
     ctaHref: '/download/install.exe',
@@ -94,6 +102,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Funktionen', href: '#features' },
       { label: 'Modelle', href: '#models' },
       { label: 'Erweiterungen', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Herunterladen',
     ctaHref: '/download/install.exe',
@@ -104,6 +113,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: '機能', href: '#features' },
       { label: 'モデル', href: '#models' },
       { label: '拡張機能', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'ダウンロード',
     ctaHref: '/download/install.exe',
@@ -114,6 +124,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: '기능', href: '#features' },
       { label: '모델', href: '#models' },
       { label: '확장 기능', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: '다운로드',
     ctaHref: '/download/install.exe',
@@ -124,6 +135,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'বৈশিষ্ট্য', href: '#features' },
       { label: 'মডেল', href: '#models' },
       { label: 'এক্সটেনশন', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'ডাউনলোড',
     ctaHref: '/download/install.exe',
@@ -134,6 +146,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'विशेषताएँ', href: '#features' },
       { label: 'मॉडल', href: '#models' },
       { label: 'एक्सटेंशन', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'डाउनलोड करें',
     ctaHref: '/download/install.exe',
@@ -144,6 +157,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Recursos', href: '#features' },
       { label: 'Modelos', href: '#models' },
       { label: 'Extensões', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Baixar',
     ctaHref: '/download/install.exe',
@@ -154,6 +168,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'Возможности', href: '#features' },
       { label: 'Модели', href: '#models' },
       { label: 'Расширения', href: '#marketplace' },
+      { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Скачать',
     ctaHref: '/download/install.exe',
@@ -188,14 +203,14 @@ export interface HeroConfig {
 
 export const heroConfig: Record<Lang, HeroConfig> = {
   en: {
-    eyebrow: 'AI CODING AGENT',
+    eyebrow: 'OPEN-SOURCE AI CODING AGENT',
     titleLines: ['Start Coding.', 'Make It Yours.'],
     descriptionLines: [
       'Velloc is ready from the first launch, with a familiar AI coding experience and sensible defaults.',
       'Start with one API key. Customize models, agents, memory, and extensions only when your project calls for more control.',
     ],
     primaryCta: { text: 'Download for Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'See How It Works', href: '#features' },
+    secondaryCta: { text: 'View on GitHub', href: GITHUB_REPO_URL },
     taglineLines: ['Simple by default.', 'Powerful by choice.'],
     rightCard: {
       title: 'Start in Minutes',
@@ -208,14 +223,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   zh: {
-    eyebrow: 'AI 编程 Agent',
+    eyebrow: '开源 AI 编程 Agent',
     titleLines: ['即刻开始编程。', '一切由你掌控。'],
     descriptionLines: [
       'Velloc 开箱即用，首次启动即可进入熟悉的 AI 编程工作流，无需复杂配置。',
       '只需一个 API Key 即可开始。需要更强大的能力时，再根据项目需求定制模型、Agent、记忆和扩展。',
     ],
     primaryCta: { text: '下载 Windows 版', href: '/download/install.exe' },
-    secondaryCta: { text: '查看如何使用', href: '#features' },
+    secondaryCta: { text: '在 GitHub 上查看', href: GITHUB_REPO_URL },
     taglineLines: ['简单，是默认体验。', '强大，由你按需开启。'],
     rightCard: {
       title: '快速上手',
@@ -228,14 +243,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   es: {
-    eyebrow: 'AGENTE DE CODIFICACIÓN CON IA',
+    eyebrow: 'AGENTE DE CODIFICACIÓN CON IA DE CÓDIGO ABIERTO',
     titleLines: ['Empiece a programar.', 'Hágalo suyo.'],
     descriptionLines: [
       'Velloc está listo desde el primer inicio, con una experiencia de codificación con IA familiar y valores predeterminados sensatos.',
       'Empiece con una única clave de API. Personalice modelos, agentes, memoria y extensiones solo cuando su proyecto exija un mayor control.',
     ],
     primaryCta: { text: 'Descargar para Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Ver cómo funciona', href: '#features' },
+    secondaryCta: { text: 'Ver en GitHub', href: GITHUB_REPO_URL },
     taglineLines: ['Simple por defecto.', 'Potente si así lo elige.'],
     rightCard: {
       title: 'Empiece en minutos',
@@ -248,14 +263,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   fr: {
-    eyebrow: 'AGENT DE CODAGE IA',
+    eyebrow: 'AGENT DE CODAGE IA OPEN SOURCE',
     titleLines: ['Commencez à coder.', 'Faites-le vôtre.'],
     descriptionLines: [
       'Velloc est prêt dès le premier lancement, avec une expérience de codage IA familière et des réglages par défaut judicieux.',
       'Commencez avec une seule clé API. Personnalisez modèles, agents, mémoire et extensions uniquement lorsque votre projet exige plus de contrôle.',
     ],
     primaryCta: { text: 'Télécharger pour Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Voir comment ça marche', href: '#features' },
+    secondaryCta: { text: 'Voir sur GitHub', href: GITHUB_REPO_URL },
     taglineLines: ['Simple par défaut.', 'Puissant si vous le choisissez.'],
     rightCard: {
       title: 'Commencez en quelques minutes',
@@ -268,14 +283,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   de: {
-    eyebrow: 'KI-CODE-AGENT',
+    eyebrow: 'OPEN-SOURCE-KI-CODE-AGENT',
     titleLines: ['Leg los.', 'Mach es zu deinem.'],
     descriptionLines: [
       'Velloc ist ab dem ersten Start einsatzbereit, mit einer vertrauten KI-Coding-Erfahrung und sinnvollen Standardeinstellungen.',
       'Beginne mit einem einzigen API-Schlüssel. Passe Modelle, Agents, Speicher und Erweiterungen nur an, wenn dein Projekt mehr Kontrolle braucht.',
     ],
     primaryCta: { text: 'Für Windows herunterladen', href: '/download/install.exe' },
-    secondaryCta: { text: 'So funktioniert es', href: '#features' },
+    secondaryCta: { text: 'Auf GitHub ansehen', href: GITHUB_REPO_URL },
     taglineLines: ['Standardmäßig einfach.', 'Stark, wenn du es willst.'],
     rightCard: {
       title: 'In Minuten starten',
@@ -288,14 +303,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   ja: {
-    eyebrow: 'AI コーディングエージェント',
+    eyebrow: 'オープンソース AI コーディングエージェント',
     titleLines: ['コーディングを始めましょう。', 'あなた好みに。'],
     descriptionLines: [
       'Velloc は最初の起動からすぐに使えます。慣れ親しんだ AI コーディング体験と、わかりやすい初期設定を備えています。',
       'まず API キーを 1 つ追加するだけ。モデル、エージェント、メモリ、拡張機能は、プロジェクトでもっと細かい制御が必要になったときにカスタマイズできます。',
     ],
     primaryCta: { text: 'Windows 版をダウンロード', href: '/download/install.exe' },
-    secondaryCta: { text: '使い方を見る', href: '#features' },
+    secondaryCta: { text: 'GitHub で見る', href: GITHUB_REPO_URL },
     taglineLines: ['デフォルトでシンプル。', '選べばパワフル。'],
     rightCard: {
       title: '数分で開始',
@@ -308,14 +323,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   ko: {
-    eyebrow: 'AI 코딩 에이전트',
+    eyebrow: '오픈소스 AI 코딩 에이전트',
     titleLines: ['코딩을 시작하세요.', '당신만의 것으로.'],
     descriptionLines: [
       'Velloc는 처음 실행하는 순간부터 사용할 준비가 되어 있습니다. 익숙한 AI 코딩 경험과 합리적인 기본 설정을 제공합니다.',
       'API 키 하나로 시작하세요. 모델, 에이전트, 메모리, 확장 기능은 프로젝트에서 더 많은 제어가 필요할 때만 맞춤 설정하면 됩니다.',
     ],
     primaryCta: { text: 'Windows용 다운로드', href: '/download/install.exe' },
-    secondaryCta: { text: '사용 방법 보기', href: '#features' },
+    secondaryCta: { text: 'GitHub에서 보기', href: GITHUB_REPO_URL },
     taglineLines: ['기본은 단순하게.', '선택하면 강력하게.'],
     rightCard: {
       title: '몇 분 만에 시작',
@@ -328,14 +343,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   bn: {
-    eyebrow: 'AI কোডিং এজেন্ট',
+    eyebrow: 'ওপেন সোর্স AI কোডিং এজেন্ট',
     titleLines: ['কোডিং শুরু করুন।', 'আপনার মতো করে গড়ে তুলুন।'],
     descriptionLines: [
       'Velloc প্রথম চালু থেকেই প্রস্তুত, পরিচিত AI কোডিং অভিজ্ঞতা এবং যুক্তিসঙ্গত ডিফল্ট সেটিংসসহ।',
       'একটি API কী দিয়ে শুরু করুন। আপনার প্রকল্পে আরও নিয়ন্ত্রণের প্রয়োজন হলে তবেই মডেল, এজেন্ট, মেমোরি এবং এক্সটেনশন কাস্টমাইজ করুন।',
     ],
     primaryCta: { text: 'Windows-এর জন্য ডাউনলোড', href: '/download/install.exe' },
-    secondaryCta: { text: 'কীভাবে কাজ করে দেখুন', href: '#features' },
+    secondaryCta: { text: 'GitHub-এ দেখুন', href: GITHUB_REPO_URL },
     taglineLines: ['ডিফল্টে সহজ।', 'ইচ্ছায় শক্তিশালী।'],
     rightCard: {
       title: 'মিনিটেই শুরু',
@@ -348,14 +363,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   hi: {
-    eyebrow: 'AI कोडिंग एजेंट',
+    eyebrow: 'ओपन सोर्स AI कोडिंग एजेंट',
     titleLines: ['कोडिंग शुरू करें।', 'इसे अपना बनाएँ।'],
     descriptionLines: [
       'Velloc पहले लॉन्च से ही तैयार है, परिचित AI कोडिंग अनुभव और समझदार डिफ़ॉल्ट सेटिंग्स के साथ।',
       'सिर्फ़ एक API कुंजी से शुरू करें। मॉडल, एजेंट, मेमोरी और एक्सटेंशन तभी कस्टमाइज़ करें जब आपके प्रोजेक्ट को अधिक नियंत्रण की ज़रूरत हो।',
     ],
     primaryCta: { text: 'Windows के लिए डाउनलोड करें', href: '/download/install.exe' },
-    secondaryCta: { text: 'यह कैसे काम करता है देखें', href: '#features' },
+    secondaryCta: { text: 'GitHub पर देखें', href: GITHUB_REPO_URL },
     taglineLines: ['डिफ़ॉल्ट रूप से सरल।', 'चुनने पर शक्तिशाली।'],
     rightCard: {
       title: 'मिनटों में शुरू करें',
@@ -368,14 +383,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   pt: {
-    eyebrow: 'AGENTE DE CODIFICAÇÃO COM IA',
+    eyebrow: 'AGENTE DE CODIFICAÇÃO COM IA DE CÓDIGO ABERTO',
     titleLines: ['Comece a programar.', 'Faça do seu jeito.'],
     descriptionLines: [
       'O Velloc está pronto desde o primeiro início, com uma experiência de codificação com IA familiar e configurações padrão sensatas.',
       'Comece com uma única chave de API. Personalize modelos, agentes, memória e extensões apenas quando o seu projeto exigir mais controle.',
     ],
     primaryCta: { text: 'Baixar para Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Veja como funciona', href: '#features' },
+    secondaryCta: { text: 'Ver no GitHub', href: GITHUB_REPO_URL },
     taglineLines: ['Simples por padrão.', 'Poderoso por escolha.'],
     rightCard: {
       title: 'Comece em minutos',
@@ -388,14 +403,14 @@ export const heroConfig: Record<Lang, HeroConfig> = {
     },
   },
   ru: {
-    eyebrow: 'ИИ-АГЕНТ ДЛЯ НАПИСАНИЯ КОДА',
+    eyebrow: 'ОТКРЫТЫЙ ИИ-АГЕНТ ДЛЯ НАПИСАНИЯ КОДА',
     titleLines: ['Начните кодировать.', 'Сделайте его своим.'],
     descriptionLines: [
       'Velloc готов к работе с первого запуска: привычный опыт ИИ-кодирования и разумные настройки по умолчанию.',
       'Начните с одного API-ключа. Настраивайте модели, агентов, память и расширения только тогда, когда ваш проект требует большего контроля.',
     ],
     primaryCta: { text: 'Скачать для Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Как это работает', href: '#features' },
+    secondaryCta: { text: 'Смотреть на GitHub', href: GITHUB_REPO_URL },
     taglineLines: ['Просто по умолчанию.', 'Мощно по вашему выбору.'],
     rightCard: {
       title: 'Начало за несколько минут',
@@ -434,7 +449,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
     sectionLabel: 'FEATURES',
     title: 'Start simple. Go further when you need to.',
     subtitle:
-      'Begin with a familiar AI coding workflow, then add models, agents, memory, plugins, and skills as your needs grow.',
+      'Begin with a familiar AI coding workflow, then add models, agents, memory, plugins, skills, and deeper customization as your needs grow.',
     items: [
       {
         id: 'start-coding',
@@ -481,12 +496,22 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
           'Install compatible plugins and skills, or create capabilities of your own and wire them into any agent.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'Open by Design',
+        description:
+          'Inspect the source, modify the agent, build your own capabilities, or shape Velloc around the way you work.',
+        detailTitle: 'Read it, shape it, build on it',
+        detail:
+          'Velloc Code is open source. Explore how the agent works, modify it to fit your workflow, or build new tools and providers on top of it.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   zh: {
     sectionLabel: '功能',
     title: '简单上手，按需进阶。',
-    subtitle: '从熟悉的 AI 编程工作流开始。随着项目需求增长，再逐步加入更多模型、Agent、记忆、插件和技能。',
+    subtitle: '从熟悉的 AI 编程工作流开始。随着项目需求增长，再逐步加入更多模型、Agent、记忆、插件、技能，以及更深入的定制。',
     items: [
       {
         id: 'start-coding',
@@ -528,13 +553,21 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: '安装兼容的插件和技能，或创建属于你自己的能力，并接入任意 Agent。',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: '开放设计',
+        description: '查看源代码，修改 Agent，构建属于你自己的能力，或者按你的方式重新塑造 Velloc。',
+        detailTitle: '读懂它，改造它，在它之上构建',
+        detail: 'Velloc Code 是开源的。了解 Agent 的工作原理，按你的工作流修改它，或者在它之上构建新的工具和服务商。',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   es: {
     sectionLabel: 'Funciones',
     title: 'Empiece con lo esencial. Vaya más allá cuando lo necesite.',
     subtitle:
-      'Empiece con un flujo de codificación con IA familiar y añada modelos, agentes, memoria, plugins y habilidades a medida que crezcan sus necesidades.',
+      'Empiece con un flujo de codificación con IA familiar y añada modelos, agentes, memoria, plugins, habilidades y una personalización más profunda a medida que crezcan sus necesidades.',
     items: [
       {
         id: 'start-coding',
@@ -576,13 +609,21 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'Instale plugins y habilidades compatibles, o cree sus propias capacidades y conéctelas a cualquier agente.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'Abierto por diseño',
+        description: 'Inspeccione el código fuente, modifique el agente, cree sus propias capacidades o adapte Velloc a su forma de trabajar.',
+        detailTitle: 'Léalo, adáptelo, constrúyalo',
+        detail: 'Velloc Code es de código abierto. Explore cómo funciona el agente, modifíquelo para adaptarlo a su flujo de trabajo o cree nuevas herramientas y proveedores sobre él.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   fr: {
     sectionLabel: 'Fonctionnalités',
     title: 'Commencez simplement. Allez plus loin quand vous en avez besoin.',
     subtitle:
-      'Commencez avec un flux de codage IA familier, puis ajoutez modèles, agents, mémoire, plugins et compétences à mesure que vos besoins évoluent.',
+      'Commencez avec un flux de codage IA familier, puis ajoutez modèles, agents, mémoire, plugins, compétences et une personnalisation plus poussée à mesure que vos besoins évoluent.',
     items: [
       {
         id: 'start-coding',
@@ -624,13 +665,21 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'Installez des plugins et des compétences compatibles, ou créez vos propres capacités et connectez-les à n’importe quel agent.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'Ouvert par conception',
+        description: 'Inspectez le code source, modifiez l’agent, créez vos propres capacités ou façonnez Velloc selon votre façon de travailler.',
+        detailTitle: 'Lisez-le, façonnez-le, construisez dessus',
+        detail: 'Velloc Code est open source. Découvrez comment fonctionne l’agent, modifiez-le pour l’adapter à votre flux de travail, ou créez de nouveaux outils et fournisseurs par-dessus.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   de: {
     sectionLabel: 'Funktionen',
     title: 'Einfach starten. Weiter gehen, wenn du es brauchst.',
     subtitle:
-      'Starte mit einem vertrauten KI-Coding-Workflow und füge Modelle, Agents, Speicher, Plugins und Skills hinzu, wenn deine Anforderungen wachsen.',
+      'Starte mit einem vertrauten KI-Coding-Workflow und füge Modelle, Agents, Speicher, Plugins, Skills und tiefere Anpassung hinzu, wenn deine Anforderungen wachsen.',
     items: [
       {
         id: 'start-coding',
@@ -672,12 +721,20 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'Installiere kompatible Plugins und Skills oder erstelle eigene Fähigkeiten und binde sie in jeden Agent ein.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'Offen von Grund auf',
+        description: 'Sieh dir den Quellcode an, passe den Agent an, baue eigene Fähigkeiten oder gestalte Velloc so, wie du arbeitest.',
+        detailTitle: 'Lies es, gestalte es, baue darauf auf',
+        detail: 'Velloc Code ist Open Source. Erfahre, wie der Agent funktioniert, passe ihn an deinen Workflow an oder baue neue Tools und Anbieter darauf auf.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   ja: {
     sectionLabel: '機能',
     title: 'シンプルに始めて、必要に応じてさらに。',
-    subtitle: '慣れ親しんだ AI コーディングワークフローから始めて、必要に応じてモデル、エージェント、メモリ、プラグイン、スキルを追加していきます。',
+    subtitle: '慣れ親しんだ AI コーディングワークフローから始めて、必要に応じてモデル、エージェント、メモリ、プラグイン、スキル、そしてより深いカスタマイズを追加していきます。',
     items: [
       {
         id: 'start-coding',
@@ -719,12 +776,20 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: '互換性のあるプラグインやスキルをインストールするか、独自の機能を作成して任意のエージェントに組み込めます。',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'オープンな設計',
+        description: 'ソースコードを確認し、エージェントを変更し、独自の機能を構築し、あるいは自分の働き方に合わせて Velloc を形作ることができます。',
+        detailTitle: '読んで、形作って、その上に構築する',
+        detail: 'Velloc Code はオープンソースです。エージェントの仕組みを確認し、ワークフローに合わせて変更し、その上に新しいツールやプロバイダーを構築できます。',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   ko: {
     sectionLabel: '기능',
     title: '간단하게 시작하고, 필요할 때 더 나아가세요.',
-    subtitle: '익숙한 AI 코딩 워크플로로 시작하고, 요구 사항이 늘어남에 따라 모델, 에이전트, 메모리, 플러그인, 스킬을 추가하세요.',
+    subtitle: '익숙한 AI 코딩 워크플로로 시작하고, 요구 사항이 늘어남에 따라 모델, 에이전트, 메모리, 플러그인, 스킬, 그리고 더 깊은 커스터마이징을 추가하세요.',
     items: [
       {
         id: 'start-coding',
@@ -766,12 +831,20 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: '호환되는 플러그인과 스킬을 설치하거나, 직접 만든 기능을 어떤 에이전트에든 연결하세요.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: '설계부터 오픈',
+        description: '소스 코드를 살펴보고, 에이전트를 수정하고, 나만의 기능을 만들거나, 자신의 방식에 맞게 Velloc을 바꿔보세요.',
+        detailTitle: '읽고, 다듬고, 그 위에 만들기',
+        detail: 'Velloc Code는 오픈소스입니다. 에이전트가 어떻게 작동하는지 살펴보고, 워크플로에 맞게 수정하거나, 그 위에 새로운 도구와 공급업체를 만들어 보세요.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   bn: {
     sectionLabel: 'বৈশিষ্ট্য',
     title: 'সহজে শুরু করুন। প্রয়োজন হলে আরও এগিয়ে যান।',
-    subtitle: 'পরিচিত AI কোডিং ওয়ার্কফ্লো দিয়ে শুরু করুন, তারপর প্রয়োজনের সাথে সাথে আরও মডেল, এজেন্ট, মেমোরি, প্লাগইন এবং স্কিল যোগ করুন।',
+    subtitle: 'পরিচিত AI কোডিং ওয়ার্কফ্লো দিয়ে শুরু করুন, তারপর প্রয়োজনের সাথে সাথে আরও মডেল, এজেন্ট, মেমোরি, প্লাগইন, স্কিল এবং আরও গভীর কাস্টমাইজেশন যোগ করুন।',
     items: [
       {
         id: 'start-coding',
@@ -813,12 +886,20 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'সামঞ্জস্যপূর্ণ প্লাগইন ও স্কিল ইনস্টল করুন, অথবা নিজের ক্ষমতা তৈরি করে যেকোনো এজেন্টে যুক্ত করুন।',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'নকশাগতভাবে উন্মুক্ত',
+        description: 'সোর্স কোড দেখুন, এজেন্ট পরিবর্তন করুন, নিজের ক্ষমতা তৈরি করুন, অথবা আপনার কাজের ধরন অনুযায়ী Velloc-কে রূপ দিন।',
+        detailTitle: 'পড়ুন, রূপ দিন, এর উপর তৈরি করুন',
+        detail: 'Velloc Code একটি ওপেন সোর্স প্রকল্প। এজেন্ট কীভাবে কাজ করে তা দেখুন, আপনার ওয়ার্কফ্লো অনুযায়ী এটি পরিবর্তন করুন, অথবা এর উপর নতুন টুল ও প্রোভাইডার তৈরি করুন।',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   hi: {
     sectionLabel: 'विशेषताएँ',
     title: 'सरलता से शुरू करें। ज़रूरत पड़ने पर आगे बढ़ें।',
-    subtitle: 'परिचित AI कोडिंग वर्कफ़्लो से शुरू करें, फिर ज़रूरत बढ़ने पर मॉडल, एजेंट, मेमोरी, प्लगइन्स और स्किल्स जोड़ते जाएँ।',
+    subtitle: 'परिचित AI कोडिंग वर्कफ़्लो से शुरू करें, फिर ज़रूरत बढ़ने पर मॉडल, एजेंट, मेमोरी, प्लगइन्स, स्किल्स और गहन कस्टमाइज़ेशन जोड़ते जाएँ।',
     items: [
       {
         id: 'start-coding',
@@ -860,13 +941,21 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'संगत प्लगइन्स और स्किल्स इंस्टॉल करें, या अपनी खुद की क्षमताएँ बनाकर किसी भी एजेंट में जोड़ें।',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'डिज़ाइन से ही खुला',
+        description: 'सोर्स कोड देखें, एजेंट को संशोधित करें, अपनी खुद की क्षमताएँ बनाएँ, या अपने काम करने के तरीके के अनुसार Velloc को ढालें।',
+        detailTitle: 'इसे पढ़ें, ढालें, इस पर बनाएँ',
+        detail: 'Velloc Code एक ओपन सोर्स प्रोजेक्ट है। देखें कि एजेंट कैसे काम करता है, इसे अपने वर्कफ़्लो के अनुसार संशोधित करें, या इस पर नए टूल्स और प्रदाता बनाएँ।',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   pt: {
     sectionLabel: 'Recursos',
     title: 'Comece simples. Vá além quando precisar.',
     subtitle:
-      'Comece com um fluxo de codificação com IA familiar e adicione modelos, agentes, memória, plugins e skills conforme suas necessidades crescem.',
+      'Comece com um fluxo de codificação com IA familiar e adicione modelos, agentes, memória, plugins, skills e uma personalização mais profunda conforme suas necessidades crescem.',
     items: [
       {
         id: 'start-coding',
@@ -908,13 +997,21 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detail: 'Instale plugins e skills compatíveis ou crie suas próprias capacidades e conecte-as a qualquer agente.',
         learnMore: '',
       },
+      {
+        id: 'open-by-design',
+        title: 'Aberto por natureza',
+        description: 'Inspecione o código-fonte, modifique o agente, crie suas próprias capacidades ou molde o Velloc do seu jeito de trabalhar.',
+        detailTitle: 'Leia, molde, construa em cima',
+        detail: 'O Velloc Code é de código aberto. Explore como o agente funciona, modifique-o para se adequar ao seu fluxo de trabalho ou crie novas ferramentas e provedores em cima dele.',
+        learnMore: GITHUB_REPO_URL,
+      },
     ],
   },
   ru: {
     sectionLabel: 'Возможности',
     title: 'Начните с простого. Расширяйтесь по мере необходимости.',
     subtitle:
-      'Начните с привычного рабочего процесса ИИ-кодирования, а затем добавляйте модели, агентов, память, плагины и навыки по мере роста ваших потребностей.',
+      'Начните с привычного рабочего процесса ИИ-кодирования, а затем добавляйте модели, агентов, память, плагины, навыки и более глубокую настройку по мере роста ваших потребностей.',
     items: [
       {
         id: 'start-coding',
@@ -955,6 +1052,14 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detailTitle: 'Расширяйте по мере необходимости',
         detail: 'Устанавливайте совместимые плагины и навыки или создавайте собственные возможности и подключайте их к любому агенту.',
         learnMore: '',
+      },
+      {
+        id: 'open-by-design',
+        title: 'Открытость по замыслу',
+        description: 'Изучайте исходный код, изменяйте агента, создавайте собственные возможности или адаптируйте Velloc под свой стиль работы.',
+        detailTitle: 'Изучите, адаптируйте, стройте поверх',
+        detail: 'Velloc Code — проект с открытым исходным кодом. Изучите, как работает агент, адаптируйте его под свой рабочий процесс или создавайте новые инструменты и провайдеров на его основе.',
+        learnMore: GITHUB_REPO_URL,
       },
     ],
   },
@@ -1411,6 +1516,143 @@ export const marketplaceConfig: Record<Lang, MarketplaceConfig> = {
           'Просматривайте переиспользуемые навыки, создавайте собственные и делайте их доступными для любого агента.',
       },
     ],
+  },
+};
+
+// ============================================================
+// Open Source (fifth screen — between Extensions and Footer)
+// ============================================================
+
+export interface OpenSourceConfig {
+  sectionLabel: string;
+  title: string;
+  heading: string;
+  description: string;
+  tags: string[];
+  cta: { text: string; href: string };
+  runtimeNote: string;
+}
+
+export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
+  en: {
+    sectionLabel: 'OPEN SOURCE',
+    title: 'Built in the open.',
+    heading: 'Velloc Code is open source.',
+    description:
+      'Explore how the agent works, modify it, build new tools and providers, contribute improvements, or create your own version.',
+    tags: ['Agent', 'UI', 'Tools', 'Memory', 'Providers', 'Skills', 'Plugins'],
+    cta: { text: 'View Velloc on GitHub', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'The official Velloc Runtime provides the native system and Chromium integration behind deeper desktop capabilities.',
+  },
+  zh: {
+    sectionLabel: '开源',
+    title: '公开构建。',
+    heading: 'Velloc Code 是开源的。',
+    description:
+      '了解 Agent 的工作原理，修改它，开发新的工具和服务商，贡献改进，或者打造属于你自己的版本。',
+    tags: ['Agent', 'UI', '工具', '记忆', '服务商', '技能', '插件'],
+    cta: { text: '在 GitHub 上查看 Velloc', href: GITHUB_REPO_URL },
+    runtimeNote: '官方的 Velloc Runtime 提供原生系统与 Chromium 集成，支持更深层的桌面功能。',
+  },
+  es: {
+    sectionLabel: 'Código abierto',
+    title: 'Construido de forma abierta.',
+    heading: 'Velloc Code es de código abierto.',
+    description:
+      'Explore cómo funciona el agente, modifíquelo, cree nuevas herramientas y proveedores, contribuya con mejoras o cree su propia versión.',
+    tags: ['Agente', 'UI', 'Herramientas', 'Memoria', 'Proveedores', 'Habilidades', 'Plugins'],
+    cta: { text: 'Ver Velloc en GitHub', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'El Velloc Runtime oficial proporciona la integración nativa del sistema y de Chromium que sustenta funciones de escritorio más avanzadas.',
+  },
+  fr: {
+    sectionLabel: 'Open source',
+    title: 'Développé en open source.',
+    heading: 'Velloc Code est open source.',
+    description:
+      'Découvrez comment fonctionne l’agent, modifiez-le, créez de nouveaux outils et fournisseurs, contribuez des améliorations ou créez votre propre version.',
+    tags: ['Agent', 'UI', 'Outils', 'Mémoire', 'Fournisseurs', 'Compétences', 'Plugins'],
+    cta: { text: 'Voir Velloc sur GitHub', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'Le Velloc Runtime officiel fournit l’intégration native au système et à Chromium à l’origine des fonctionnalités de bureau plus avancées.',
+  },
+  de: {
+    sectionLabel: 'Open Source',
+    title: 'Offen entwickelt.',
+    heading: 'Velloc Code ist Open Source.',
+    description:
+      'Erfahre, wie der Agent funktioniert, passe ihn an, baue neue Tools und Anbieter, trage Verbesserungen bei oder erstelle deine eigene Version.',
+    tags: ['Agent', 'UI', 'Tools', 'Speicher', 'Anbieter', 'Skills', 'Plugins'],
+    cta: { text: 'Velloc auf GitHub ansehen', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'Die offizielle Velloc Runtime stellt die native System- und Chromium-Integration bereit, die tiefere Desktop-Funktionen ermöglicht.',
+  },
+  ja: {
+    sectionLabel: 'オープンソース',
+    title: 'オープンな開発。',
+    heading: 'Velloc Code はオープンソースです。',
+    description:
+      'エージェントの仕組みを確認し、変更し、新しいツールやプロバイダーを作成し、改善に貢献し、あるいは自分だけのバージョンを作ることができます。',
+    tags: ['エージェント', 'UI', 'ツール', 'メモリ', 'プロバイダー', 'スキル', 'プラグイン'],
+    cta: { text: 'GitHub で Velloc を見る', href: GITHUB_REPO_URL },
+    runtimeNote:
+      '公式の Velloc Runtime は、より高度なデスクトップ機能を支えるネイティブシステムおよび Chromium 統合を提供します。',
+  },
+  ko: {
+    sectionLabel: '오픈소스',
+    title: '오픈소스로 개발됩니다.',
+    heading: 'Velloc Code는 오픈소스입니다.',
+    description:
+      '에이전트가 어떻게 작동하는지 살펴보고, 수정하고, 새로운 도구와 공급업체를 만들고, 개선 사항을 기여하거나, 나만의 버전을 만들어 보세요.',
+    tags: ['에이전트', 'UI', '도구', '메모리', '공급업체', '스킬', '플러그인'],
+    cta: { text: 'GitHub에서 Velloc 보기', href: GITHUB_REPO_URL },
+    runtimeNote:
+      '공식 Velloc Runtime은 더 깊은 데스크톱 기능을 지원하는 네이티브 시스템 및 Chromium 통합을 제공합니다.',
+  },
+  bn: {
+    sectionLabel: 'ওপেন সোর্স',
+    title: 'উন্মুক্তভাবে তৈরি।',
+    heading: 'Velloc Code একটি ওপেন সোর্স প্রকল্প।',
+    description:
+      'এজেন্ট কীভাবে কাজ করে তা দেখুন, এটি পরিবর্তন করুন, নতুন টুল ও প্রোভাইডার তৈরি করুন, উন্নতিতে অবদান রাখুন, অথবা নিজের সংস্করণ তৈরি করুন।',
+    tags: ['এজেন্ট', 'UI', 'টুল', 'মেমোরি', 'প্রোভাইডার', 'স্কিল', 'প্লাগইন'],
+    cta: { text: 'GitHub-এ Velloc দেখুন', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'অফিসিয়াল Velloc Runtime নেটিভ সিস্টেম ও Chromium ইন্টিগ্রেশন প্রদান করে, যা আরও গভীর ডেস্কটপ ক্ষমতাকে সমর্থন করে।',
+  },
+  hi: {
+    sectionLabel: 'ओपन सोर्स',
+    title: 'खुले तौर पर बनाया गया।',
+    heading: 'Velloc Code एक ओपन सोर्स प्रोजेक्ट है।',
+    description:
+      'देखें कि एजेंट कैसे काम करता है, इसे संशोधित करें, नए टूल्स और प्रदाता बनाएँ, सुधारों में योगदान दें, या अपना खुद का संस्करण बनाएँ।',
+    tags: ['एजेंट', 'UI', 'टूल्स', 'मेमोरी', 'प्रदाता', 'स्किल्स', 'प्लगइन्स'],
+    cta: { text: 'GitHub पर Velloc देखें', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'आधिकारिक Velloc Runtime नेटिव सिस्टम और Chromium इंटीग्रेशन प्रदान करता है, जो अधिक गहन डेस्कटॉप क्षमताओं को सक्षम बनाता है।',
+  },
+  pt: {
+    sectionLabel: 'Código aberto',
+    title: 'Construído abertamente.',
+    heading: 'O Velloc Code é de código aberto.',
+    description:
+      'Explore como o agente funciona, modifique-o, crie novas ferramentas e provedores, contribua com melhorias ou crie sua própria versão.',
+    tags: ['Agente', 'UI', 'Ferramentas', 'Memória', 'Provedores', 'Skills', 'Plugins'],
+    cta: { text: 'Ver o Velloc no GitHub', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'O Velloc Runtime oficial fornece a integração nativa com o sistema e com o Chromium por trás de recursos mais avançados de desktop.',
+  },
+  ru: {
+    sectionLabel: 'Открытый код',
+    title: 'Создано в открытую.',
+    heading: 'Velloc Code — проект с открытым исходным кодом.',
+    description:
+      'Изучите, как работает агент, изменяйте его, создавайте новые инструменты и провайдеров, вносите улучшения или создавайте собственную версию.',
+    tags: ['Агент', 'UI', 'Инструменты', 'Память', 'Провайдеры', 'Навыки', 'Плагины'],
+    cta: { text: 'Посмотреть Velloc на GitHub', href: GITHUB_REPO_URL },
+    runtimeNote:
+      'Официальный Velloc Runtime обеспечивает нативную системную интеграцию и интеграцию с Chromium, лежащую в основе более глубоких возможностей рабочего стола.',
   },
 };
 
