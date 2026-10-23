@@ -33,6 +33,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Emit static /privacy entry point
+        run: |
+          mkdir -p dist/privacy
+          cp dist/index.html dist/privacy/index.html
+
       - name: SPA fallback for client-side routes
         run: cp dist/index.html dist/404.html
 

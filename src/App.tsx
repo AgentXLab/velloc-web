@@ -7,6 +7,7 @@ import AlumniArchives from './sections/AlumniArchives';
 import OpenSource from './sections/OpenSource';
 import Footer from './sections/Footer';
 import CapabilityDetail from './sections/CapabilityDetail';
+import PrivacyPolicy from './sections/PrivacyPolicy';
 import { siteStrings } from './config';
 import { useLang } from './i18n';
 
@@ -41,6 +42,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/capability/:slug" element={<CapabilityDetail />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
     </Routes>
   );
 }

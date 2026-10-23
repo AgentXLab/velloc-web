@@ -25,7 +25,8 @@ export const siteConfig: SiteConfig = {
 };
 
 /** Shared across nav, hero, features, and the open-source section — one place to update. */
-export const GITHUB_REPO_URL = 'https://github.com/AgentXLab/velloc-bootstrap';
+export const GITHUB_REPO_URL = 'https://github.com/VellocLabs/velloc-bootstrap';
+export const GITHUB_ORG_URL = 'https://github.com/VellocLabs';
 
 /** Interpolate `{name}` placeholders in a catalog value. */
 export function interpolate(template: string, vars: Record<string, string | number>): string {
@@ -1539,9 +1540,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Built in the open.',
     heading: 'Velloc Code is open source.',
     description:
-      'Explore how the agent works, modify it, build new tools and providers, contribute improvements, or create your own version.',
+      'The agent runtime, tools, and interface are developed in the open. Build on them, add new tools and providers, contribute improvements, or create your own version.',
     tags: ['Agent', 'UI', 'Tools', 'Memory', 'Providers', 'Skills', 'Plugins'],
-    cta: { text: 'View Velloc on GitHub', href: GITHUB_REPO_URL },
+    cta: { text: 'View Velloc on GitHub', href: GITHUB_ORG_URL },
     runtimeNote:
       'The official Velloc Runtime provides the native system and Chromium integration behind deeper desktop capabilities.',
   },
@@ -1550,9 +1551,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: '公开构建。',
     heading: 'Velloc Code 是开源的。',
     description:
-      '了解 Agent 的工作原理，修改它，开发新的工具和服务商，贡献改进，或者打造属于你自己的版本。',
+      'Agent 运行时、工具与界面都在公开环境中开发。在它们之上构建，添加新的工具和服务商，贡献改进，或者打造属于你自己的版本。',
     tags: ['Agent', 'UI', '工具', '记忆', '服务商', '技能', '插件'],
-    cta: { text: '在 GitHub 上查看 Velloc', href: GITHUB_REPO_URL },
+    cta: { text: '在 GitHub 上查看 Velloc', href: GITHUB_ORG_URL },
     runtimeNote: '官方的 Velloc Runtime 提供原生系统与 Chromium 集成，支持更深层的桌面功能。',
   },
   es: {
@@ -1560,9 +1561,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Construido de forma abierta.',
     heading: 'Velloc Code es de código abierto.',
     description:
-      'Explore cómo funciona el agente, modifíquelo, cree nuevas herramientas y proveedores, contribuya con mejoras o cree su propia versión.',
+      'El runtime del agente, las herramientas y la interfaz se desarrollan de forma abierta. Construya sobre ellos, añada nuevas herramientas y proveedores, contribuya con mejoras o cree su propia versión.',
     tags: ['Agente', 'UI', 'Herramientas', 'Memoria', 'Proveedores', 'Habilidades', 'Plugins'],
-    cta: { text: 'Ver Velloc en GitHub', href: GITHUB_REPO_URL },
+    cta: { text: 'Ver Velloc en GitHub', href: GITHUB_ORG_URL },
     runtimeNote:
       'El Velloc Runtime oficial proporciona la integración nativa del sistema y de Chromium que sustenta funciones de escritorio más avanzadas.',
   },
@@ -1571,9 +1572,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Développé en open source.',
     heading: 'Velloc Code est open source.',
     description:
-      'Découvrez comment fonctionne l’agent, modifiez-le, créez de nouveaux outils et fournisseurs, contribuez des améliorations ou créez votre propre version.',
+      'Le runtime de l’agent, les outils et l’interface sont développés ouvertement. Construisez dessus, ajoutez de nouveaux outils et fournisseurs, contribuez des améliorations ou créez votre propre version.',
     tags: ['Agent', 'UI', 'Outils', 'Mémoire', 'Fournisseurs', 'Compétences', 'Plugins'],
-    cta: { text: 'Voir Velloc sur GitHub', href: GITHUB_REPO_URL },
+    cta: { text: 'Voir Velloc sur GitHub', href: GITHUB_ORG_URL },
     runtimeNote:
       'Le Velloc Runtime officiel fournit l’intégration native au système et à Chromium à l’origine des fonctionnalités de bureau plus avancées.',
   },
@@ -1582,9 +1583,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Offen entwickelt.',
     heading: 'Velloc Code ist Open Source.',
     description:
-      'Erfahre, wie der Agent funktioniert, passe ihn an, baue neue Tools und Anbieter, trage Verbesserungen bei oder erstelle deine eigene Version.',
+      'Runtime, Tools und Oberfläche des Agenten werden offen entwickelt. Baue darauf auf, ergänze neue Tools und Anbieter, trage Verbesserungen bei oder erstelle deine eigene Version.',
     tags: ['Agent', 'UI', 'Tools', 'Speicher', 'Anbieter', 'Skills', 'Plugins'],
-    cta: { text: 'Velloc auf GitHub ansehen', href: GITHUB_REPO_URL },
+    cta: { text: 'Velloc auf GitHub ansehen', href: GITHUB_ORG_URL },
     runtimeNote:
       'Die offizielle Velloc Runtime stellt die native System- und Chromium-Integration bereit, die tiefere Desktop-Funktionen ermöglicht.',
   },
@@ -1593,9 +1594,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'オープンな開発。',
     heading: 'Velloc Code はオープンソースです。',
     description:
-      'エージェントの仕組みを確認し、変更し、新しいツールやプロバイダーを作成し、改善に貢献し、あるいは自分だけのバージョンを作ることができます。',
+      'エージェントのランタイム、ツール、インターフェースはオープンに開発されています。それらを土台に構築し、新しいツールやプロバイダーを追加し、改善に貢献し、あるいは自分だけのバージョンを作ることができます。',
     tags: ['エージェント', 'UI', 'ツール', 'メモリ', 'プロバイダー', 'スキル', 'プラグイン'],
-    cta: { text: 'GitHub で Velloc を見る', href: GITHUB_REPO_URL },
+    cta: { text: 'GitHub で Velloc を見る', href: GITHUB_ORG_URL },
     runtimeNote:
       '公式の Velloc Runtime は、より高度なデスクトップ機能を支えるネイティブシステムおよび Chromium 統合を提供します。',
   },
@@ -1604,9 +1605,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: '오픈소스로 개발됩니다.',
     heading: 'Velloc Code는 오픈소스입니다.',
     description:
-      '에이전트가 어떻게 작동하는지 살펴보고, 수정하고, 새로운 도구와 공급업체를 만들고, 개선 사항을 기여하거나, 나만의 버전을 만들어 보세요.',
+      '에이전트 런타임, 도구, 인터페이스는 공개적으로 개발됩니다. 그 위에 구축하고, 새로운 도구와 공급업체를 추가하고, 개선 사항을 기여하거나, 나만의 버전을 만들어 보세요.',
     tags: ['에이전트', 'UI', '도구', '메모리', '공급업체', '스킬', '플러그인'],
-    cta: { text: 'GitHub에서 Velloc 보기', href: GITHUB_REPO_URL },
+    cta: { text: 'GitHub에서 Velloc 보기', href: GITHUB_ORG_URL },
     runtimeNote:
       '공식 Velloc Runtime은 더 깊은 데스크톱 기능을 지원하는 네이티브 시스템 및 Chromium 통합을 제공합니다.',
   },
@@ -1615,9 +1616,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'উন্মুক্তভাবে তৈরি।',
     heading: 'Velloc Code একটি ওপেন সোর্স প্রকল্প।',
     description:
-      'এজেন্ট কীভাবে কাজ করে তা দেখুন, এটি পরিবর্তন করুন, নতুন টুল ও প্রোভাইডার তৈরি করুন, উন্নতিতে অবদান রাখুন, অথবা নিজের সংস্করণ তৈরি করুন।',
+      'এজেন্ট রান্টাইম, টুল ও ইন্টারফেস উন্মুক্তভাবে তৈরি হয়। এগুলোর উপর গড়ে তুলুন, নতুন টুল ও প্রোভাইডার যোগ করুন, উন্নতিতে অবদান রাখুন, অথবা নিজের সংস্করণ তৈরি করুন।',
     tags: ['এজেন্ট', 'UI', 'টুল', 'মেমোরি', 'প্রোভাইডার', 'স্কিল', 'প্লাগইন'],
-    cta: { text: 'GitHub-এ Velloc দেখুন', href: GITHUB_REPO_URL },
+    cta: { text: 'GitHub-এ Velloc দেখুন', href: GITHUB_ORG_URL },
     runtimeNote:
       'অফিসিয়াল Velloc Runtime নেটিভ সিস্টেম ও Chromium ইন্টিগ্রেশন প্রদান করে, যা আরও গভীর ডেস্কটপ ক্ষমতাকে সমর্থন করে।',
   },
@@ -1626,9 +1627,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'खुले तौर पर बनाया गया।',
     heading: 'Velloc Code एक ओपन सोर्स प्रोजेक्ट है।',
     description:
-      'देखें कि एजेंट कैसे काम करता है, इसे संशोधित करें, नए टूल्स और प्रदाता बनाएँ, सुधारों में योगदान दें, या अपना खुद का संस्करण बनाएँ।',
+      'एजेंट रनटाइम, टूल्स और इंटरफ़ेस खुले तौर पर विकसित किए जाते हैं। इन पर निर्माण करें, नए टूल्स और प्रदाता जोड़ें, सुधारों में योगदान दें, या अपना खुद का संस्करण बनाएँ।',
     tags: ['एजेंट', 'UI', 'टूल्स', 'मेमोरी', 'प्रदाता', 'स्किल्स', 'प्लगइन्स'],
-    cta: { text: 'GitHub पर Velloc देखें', href: GITHUB_REPO_URL },
+    cta: { text: 'GitHub पर Velloc देखें', href: GITHUB_ORG_URL },
     runtimeNote:
       'आधिकारिक Velloc Runtime नेटिव सिस्टम और Chromium इंटीग्रेशन प्रदान करता है, जो अधिक गहन डेस्कटॉप क्षमताओं को सक्षम बनाता है।',
   },
@@ -1637,9 +1638,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Construído abertamente.',
     heading: 'O Velloc Code é de código aberto.',
     description:
-      'Explore como o agente funciona, modifique-o, crie novas ferramentas e provedores, contribua com melhorias ou crie sua própria versão.',
+      'O runtime do agente, as ferramentas e a interface são desenvolvidos abertamente. Construa sobre eles, adicione novas ferramentas e provedores, contribua com melhorias ou crie sua própria versão.',
     tags: ['Agente', 'UI', 'Ferramentas', 'Memória', 'Provedores', 'Skills', 'Plugins'],
-    cta: { text: 'Ver o Velloc no GitHub', href: GITHUB_REPO_URL },
+    cta: { text: 'Ver o Velloc no GitHub', href: GITHUB_ORG_URL },
     runtimeNote:
       'O Velloc Runtime oficial fornece a integração nativa com o sistema e com o Chromium por trás de recursos mais avançados de desktop.',
   },
@@ -1648,9 +1649,9 @@ export const openSourceConfig: Record<Lang, OpenSourceConfig> = {
     title: 'Создано в открытую.',
     heading: 'Velloc Code — проект с открытым исходным кодом.',
     description:
-      'Изучите, как работает агент, изменяйте его, создавайте новые инструменты и провайдеров, вносите улучшения или создавайте собственную версию.',
+      'Среда выполнения агента, инструменты и интерфейс разрабатываются открыто. Стройте на их основе, добавляйте новые инструменты и провайдеров, вносите улучшения или создавайте собственную версию.',
     tags: ['Агент', 'UI', 'Инструменты', 'Память', 'Провайдеры', 'Навыки', 'Плагины'],
-    cta: { text: 'Посмотреть Velloc на GitHub', href: GITHUB_REPO_URL },
+    cta: { text: 'Посмотреть Velloc на GitHub', href: GITHUB_ORG_URL },
     runtimeNote:
       'Официальный Velloc Runtime обеспечивает нативную системную интеграцию и интеграцию с Chromium, лежащую в основе более глубоких возможностей рабочего стола.',
   },
@@ -1700,10 +1701,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Release Notes',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Privacy', href: '/privacy' },
         ],
       },
     ],
@@ -1730,10 +1732,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: '更新日志',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: '隐私政策', href: '/privacy' },
         ],
       },
     ],
@@ -1760,10 +1763,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Notas de la versión',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Privacidad', href: '/privacy' },
         ],
       },
     ],
@@ -1790,10 +1794,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Notes de version',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Confidentialité', href: '/privacy' },
         ],
       },
     ],
@@ -1820,10 +1825,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Versionshinweise',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Datenschutz', href: '/privacy' },
         ],
       },
     ],
@@ -1850,10 +1856,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'リリースノート',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'プライバシー', href: '/privacy' },
         ],
       },
     ],
@@ -1880,10 +1887,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: '릴리스 노트',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: '개인정보', href: '/privacy' },
         ],
       },
     ],
@@ -1910,10 +1918,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'রিলিজ নোট',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'গোপনীয়তা', href: '/privacy' },
         ],
       },
     ],
@@ -1940,10 +1949,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'रिलीज़ नोट्स',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'गोपनीयता', href: '/privacy' },
         ],
       },
     ],
@@ -1970,10 +1980,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Notas de versão',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Privacidade', href: '/privacy' },
         ],
       },
     ],
@@ -2000,10 +2011,11 @@ export const footerConfig: Record<Lang, FooterConfig> = {
         links: [
           {
             label: 'Примечания к выпуску',
-            href: 'https://github.com/AgentXLab/velloc-bootstrap/releases',
+            href: 'https://github.com/VellocLabs/velloc-bootstrap/releases',
             external: true,
           },
-          { label: 'GitHub', href: 'https://github.com/AgentXLab/velloc-bootstrap', external: true },
+          { label: 'GitHub', href: 'https://github.com/VellocLabs/velloc-bootstrap', external: true },
+          { label: 'Конфиденциальность', href: '/privacy' },
         ],
       },
     ],

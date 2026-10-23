@@ -1,20 +1,27 @@
 import { Download } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { footerConfig as footerConfigs } from '../config';
 import { useLang } from '../i18n';
 
 export default function Footer() {
   const { lang } = useLang();
   const footerConfig = footerConfigs[lang];
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   if (!footerConfig.heading && footerConfig.columns.length === 0) {
     return null;
   }
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
+    if (!href.startsWith('#')) return;
+    e.preventDefault();
+    if (pathname === '/') {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      return;
     }
+    navigate('/');
+    setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }), 150);
   };
 
   return (
@@ -126,9 +133,7 @@ export default function Footer() {
                   <a
                     key={link.label}
                     href={link.href}
-                    onClick={(e) => {
-                      if (!link.external) handleLinkClick(e, link.href);
-                    }}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                     target={link.external ? '_blank' : undefined}
                     rel={link.external ? 'noopener noreferrer' : undefined}
                     className="nav-link"
