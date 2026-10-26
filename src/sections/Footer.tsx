@@ -71,6 +71,8 @@ export default function Footer() {
               {footerConfig.primaryCta && (
                 <a
                   href={footerConfig.primaryCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={footerConfig.primaryCta.text}
                   style={{
                     display: 'inline-flex',
@@ -80,9 +82,9 @@ export default function Footer() {
                     borderRadius: 999,
                     background: '#f5f5f5',
                     color: '#0a0a0a',
-                    fontFamily: "'GeistMono', monospace",
+                    fontFamily: "'Inter', sans-serif",
                     fontSize: 14,
-                    fontWeight: 400,
+                    fontWeight: 500,
                     letterSpacing: '0.3px',
                     textDecoration: 'none',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',

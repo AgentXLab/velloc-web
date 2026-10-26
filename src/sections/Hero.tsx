@@ -1,23 +1,47 @@
-import { Download, ArrowRight, Github } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Download, Check, ChevronDown, Copy } from 'lucide-react';
 import AmberCascades from './AmberCascades';
 import Navigation from './Navigation';
-import { heroConfig as heroConfigs } from '../config';
+import { BETA_DOWNLOAD_URL, heroConfig as heroConfigs, interpolate } from '../config';
 import { useLang } from '../i18n';
+
+// SHA-256 of one installer, read from the GitHub API (the only CORS-enabled
+// source). Returns null while loading / on failure so the caller hides it.
+function useShaDigest(releaseUrl: string, assetName: string): { version: string; hash: string } | null {
+  const [digest, setDigest] = useState<{ version: string; hash: string } | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const rel = await (await fetch(releaseUrl)).json();
+        const raw = rel.assets?.find((a: { name?: string }) => a.name === assetName)?.digest;
+        if (typeof raw !== 'string' || !raw.startsWith('sha256:')) return;
+        if (!cancelled) setDigest({ version: rel.tag_name, hash: raw.slice(7) });
+      } catch {
+        /* keep it hidden */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [releaseUrl, assetName]);
+  return digest;
+}
 
 export default function Hero() {
   const { lang } = useLang();
   const heroConfig = heroConfigs[lang];
 
+  const digest = useShaDigest(
+    'https://api.github.com/repos/VellocLabs/velloc-bootstrap/releases/latest',
+    'VellocSetup.exe'
+  );
+  const [showSha, setShowSha] = useState(false);
+  const [copied, setCopied] = useState(false);
+
   if (!heroConfig.titleLines.length) {
     return null;
   }
-
-  const handleSecondaryClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const isSecondaryExternal = heroConfig.secondaryCta.href.startsWith('http');
 
@@ -123,12 +147,12 @@ export default function Hero() {
                   <p
                     key={i}
                     style={{
-                      fontFamily: "'GeistMono', monospace",
-                      fontWeight: 200,
-                      fontSize: 'clamp(15px, 1.5vw, 21px)',
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 300,
+                      fontSize: 'clamp(15px, 1.4vw, 19px)',
                       lineHeight: 1.7,
-                      letterSpacing: '-0.3px',
-                      color: '#ffffff',
+                      letterSpacing: '-0.1px',
+                      color: 'rgba(255, 255, 255, 0.92)',
                       margin: i < heroConfig.descriptionLines.length - 1 ? '0 0 14px 0' : 0,
                       textShadow: '0 2px 12px rgba(0,0,0,0.6)',
                     }}
@@ -165,7 +189,7 @@ export default function Hero() {
                 width: '100%',
                 flex: '0 1 32%',
                 minWidth: 0,
-                minHeight: 'clamp(360px, 36vh, 400px)',
+                minHeight: 'clamp(300px, 30vh, 340px)',
                 padding: 'clamp(28px, 3vw, 40px)',
                 borderRadius: 20,
                 background: 'rgba(255, 255, 255, 0.03)',
@@ -192,7 +216,7 @@ export default function Hero() {
 
               {/* Steps */}
               {heroConfig.rightCard.steps.length > 0 && (
-                <div className="flex flex-col" style={{ gap: 16, margin: '28px 0 32px 0' }}>
+                <div className="flex flex-col" style={{ gap: 12, margin: '20px 0 22px 0' }}>
                   {heroConfig.rightCard.steps.map((step) => (
                     <div
                       key={step.index}
@@ -213,7 +237,7 @@ export default function Hero() {
                       </span>
                       <span
                         style={{
-                          fontFamily: "'GeistMono', monospace",
+                          fontFamily: "'Inter', sans-serif",
                           fontWeight: 300,
                           fontSize: 14,
                           letterSpacing: '0.2px',
@@ -231,6 +255,8 @@ export default function Hero() {
               {/* Primary: solid light background, full width */}
               <a
                 href={heroConfig.primaryCta.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={heroConfig.primaryCta.text}
                 style={{
                   display: 'inline-flex',
@@ -242,10 +268,10 @@ export default function Hero() {
                   borderRadius: 999,
                   background: '#f5f5f5',
                   color: '#0a0a0a',
-                  fontFamily: "'GeistMono', monospace",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.3px',
+                  fontWeight: 500,
+                  letterSpacing: '0.2px',
                   textDecoration: 'none',
                   cursor: 'pointer',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -264,48 +290,176 @@ export default function Hero() {
                 {heroConfig.primaryCta.text}
               </a>
 
-              {/* Secondary: transparent with border, full width */}
-              <a
-                href={heroConfig.secondaryCta.href}
-                onClick={(e) => handleSecondaryClick(e, heroConfig.secondaryCta.href)}
-                target={isSecondaryExternal ? '_blank' : undefined}
-                rel={isSecondaryExternal ? 'noopener noreferrer' : undefined}
-                aria-label={heroConfig.secondaryCta.text}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 8,
-                  width: '100%',
-                  height: 54,
-                  borderRadius: 999,
-                  background: 'transparent',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  color: '#ffffff',
-                  fontFamily: "'GeistMono', monospace",
-                  fontSize: 14,
-                  fontWeight: 300,
-                  letterSpacing: '0.3px',
-                  textDecoration: 'none',
-                  cursor: 'pointer',
-                  marginTop: 14,
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-                  e.currentTarget.style.background = 'transparent';
-                }}
+              {/* Compact version line; checksum tucked into an expandable row */}
+              {digest && (
+                <div style={{ width: '100%', marginTop: 12 }}>
+                  <p
+                    style={{
+                      fontFamily: "'Fira Code', monospace",
+                      fontWeight: 400,
+                      fontSize: 11,
+                      letterSpacing: '0.2px',
+                      color: 'rgba(230, 230, 230, 0.6)',
+                      margin: 0,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {interpolate(heroConfig.versionTemplate, { version: digest.version })}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowSha((v) => !v)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 5,
+                      width: '100%',
+                      marginTop: 6,
+                      padding: 0,
+                      background: 'none',
+                      border: 'none',
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 300,
+                      fontSize: 12,
+                      letterSpacing: '0.3px',
+                      color: 'rgba(218, 218, 218, 0.55)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {heroConfig.verifyCtaText}
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                      style={{
+                        transform: showSha ? 'rotate(180deg)' : 'none',
+                        transition: 'transform 0.2s ease',
+                      }}
+                    />
+                  </button>
+                  {showSha && (
+                    <div
+                      className="flex items-center"
+                      style={{ gap: 8, marginTop: 8, justifyContent: 'center' }}
+                    >
+                      <code
+                        style={{
+                          fontFamily: "'Fira Code', monospace",
+                          fontSize: 11,
+                          letterSpacing: '0.2px',
+                          color: 'rgba(230, 230, 230, 0.8)',
+                          overflowWrap: 'anywhere',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {digest.hash}
+                      </code>
+                      <button
+                        type="button"
+                        aria-label={heroConfig.verifyCtaText}
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(digest.hash);
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 2000);
+                          } catch {
+                            /* clipboard unavailable */
+                          }
+                        }}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4,
+                          padding: '2px 6px',
+                          flexShrink: 0,
+                          background: 'none',
+                          border: 'none',
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: 11,
+                          color: copied ? 'rgba(134, 239, 172, 0.9)' : 'rgba(218, 218, 218, 0.55)',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {copied ? (
+                          <Check size={12} strokeWidth={2} aria-hidden="true" />
+                        ) : (
+                          <Copy size={12} strokeWidth={2} aria-hidden="true" />
+                        )}
+                        {copied ? heroConfig.copiedText : ''}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Beta + GitHub share one row, weakest tier */}
+              <div
+                className="flex items-center"
+                style={{ width: '100%', marginTop: 12, gap: 12 }}
               >
-                {isSecondaryExternal ? (
-                  <Github size={15} strokeWidth={2} aria-hidden="true" />
-                ) : null}
-                {heroConfig.secondaryCta.text}
-                <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
-              </a>
+                <a
+                  href={BETA_DOWNLOAD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    flex: 1,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 400,
+                    fontSize: 13,
+                    letterSpacing: '0.2px',
+                    color: 'rgba(230, 230, 230, 0.75)',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.textDecoration = 'underline';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'rgba(230, 230, 230, 0.75)';
+                    e.currentTarget.style.textDecoration = 'none';
+                  }}
+                >
+                  {heroConfig.betaCtaText}
+                </a>
+                <span
+                  aria-hidden="true"
+                  style={{ color: 'rgba(218, 218, 218, 0.3)', fontSize: 12 }}
+                >
+                  ·
+                </span>
+                <a
+                  href={heroConfig.secondaryCta.href}
+                  target={isSecondaryExternal ? '_blank' : undefined}
+                  rel={isSecondaryExternal ? 'noopener noreferrer' : undefined}
+                  aria-label={heroConfig.secondaryCta.text}
+                  style={{
+                    flex: 1,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 300,
+                    fontSize: 12,
+                    letterSpacing: '0.2px',
+                    color: 'rgba(218, 218, 218, 0.5)',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'rgba(230, 230, 230, 0.85)';
+                    e.currentTarget.style.textDecoration = 'underline';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'rgba(218, 218, 218, 0.5)';
+                    e.currentTarget.style.textDecoration = 'none';
+                  }}
+                >
+                  {heroConfig.secondaryCta.text} ↗
+                </a>
+              </div>
 
               {/* Divider */}
               <div
@@ -313,20 +467,20 @@ export default function Hero() {
                   width: '100%',
                   height: 1,
                   background: 'rgba(255, 255, 255, 0.12)',
-                  margin: '24px 0 20px 0',
+                  margin: '20px 0 14px 0',
                 }}
               />
 
-              {/* Footer text */}
+              {/* Footer text: one line, slightly higher contrast */}
               {heroConfig.rightCard.footerText && (
                 <p
                   style={{
-                    fontFamily: "'GeistMono', monospace",
-                    fontWeight: 200,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 300,
                     fontSize: 12,
-                    letterSpacing: '0.3px',
-                    color: 'rgba(218, 218, 218, 0.55)',
-                    margin: '20px 0 0 0',
+                    letterSpacing: '0.2px',
+                    color: 'rgba(230, 230, 230, 0.65)',
+                    margin: 0,
                   }}
                 >
                   {heroConfig.rightCard.footerText}

@@ -48,7 +48,7 @@ export default function Navigation() {
         />
         <span
           style={{
-            fontFamily: "'GeistMono', monospace",
+            fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
             fontSize: 13,
             letterSpacing: '4px',

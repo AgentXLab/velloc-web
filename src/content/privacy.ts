@@ -48,7 +48,7 @@ export const privacyPolicy: PrivacyPolicy = {
     {
       heading: 'Downloads',
       paragraphs: [
-        'The Windows installer is available from this Site at velloc.app/download/install.exe and from our GitHub Releases page. The provider that handles the request — GitHub Pages for the Site, GitHub for Releases — processes technical data such as your IP address and user agent in order to deliver the file, under the GitHub Privacy Statement. The download counts GitHub reports to us are aggregate numbers, not records tied to individual visitors.',
+        'The Windows installer is available from this Site at velloc.app/download/VellocSetup.exe and from our GitHub Releases page. The provider that handles the request — GitHub Pages for the Site, GitHub for Releases — processes technical data such as your IP address and user agent in order to deliver the file, under the GitHub Privacy Statement. The download counts GitHub reports to us are aggregate numbers, not records tied to individual visitors.',
       ],
     },
     {

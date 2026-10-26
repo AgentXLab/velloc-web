@@ -27,6 +27,8 @@ export const siteConfig: SiteConfig = {
 /** Shared across nav, hero, features, and the open-source section — one place to update. */
 export const GITHUB_REPO_URL = 'https://github.com/VellocLabs/velloc-bootstrap';
 export const GITHUB_ORG_URL = 'https://github.com/VellocLabs';
+/** Site-relative beta installer path (same-origin, not a direct GitHub URL). */
+export const BETA_DOWNLOAD_URL = '/download/VellocSetup-beta.exe';
 
 /** Interpolate `{name}` placeholders in a catalog value. */
 export function interpolate(template: string, vars: Record<string, string | number>): string {
@@ -62,7 +64,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Download',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Language',
   },
   zh: {
@@ -73,7 +75,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: '下载',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: '切换语言',
   },
   es: {
@@ -84,7 +86,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Descargar',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Idioma',
   },
   fr: {
@@ -95,7 +97,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Télécharger',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Langue',
   },
   de: {
@@ -106,7 +108,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Herunterladen',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Sprache',
   },
   ja: {
@@ -117,7 +119,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'ダウンロード',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: '言語',
   },
   ko: {
@@ -128,7 +130,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: '다운로드',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: '언어',
   },
   bn: {
@@ -139,7 +141,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'ডাউনলোড',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'ভাষা',
   },
   hi: {
@@ -150,7 +152,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'डाउनलोड करें',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'भाषा',
   },
   pt: {
@@ -161,7 +163,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Baixar',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Idioma',
   },
   ru: {
@@ -172,7 +174,7 @@ export const navigationConfig: Record<Lang, NavigationConfig> = {
       { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
     ],
     ctaText: 'Скачать',
-    ctaHref: '/download/install.exe',
+    ctaHref: '/download/VellocSetup.exe',
     languageLabel: 'Язык',
   },
 };
@@ -198,6 +200,14 @@ export interface HeroConfig {
   descriptionLines: string[];
   primaryCta: { text: string; href: string };
   secondaryCta: { text: string; href: string };
+  /** Compact line under the primary CTA; {version} is interpolated. */
+  versionTemplate: string;
+  /** Expandable checksum row under the primary CTA. */
+  verifyCtaText: string;
+  /** Transient label after the checksum is copied. */
+  copiedText: string;
+  /** Subtle beta download link under the primary CTA. */
+  betaCtaText: string;
   taglineLines: string[];
   rightCard: HeroRightCard;
 }
@@ -210,8 +220,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc is ready from the first launch, with a familiar AI coding experience and sensible defaults.',
       'Start with one API key. Customize models, agents, memory, and extensions only when your project calls for more control.',
     ],
-    primaryCta: { text: 'Download for Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'View on GitHub', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Download for Windows', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Verify download',
+    copiedText: 'Copied',
+    betaCtaText: 'Try the beta',
     taglineLines: ['Simple by default.', 'Powerful by choice.'],
     rightCard: {
       title: 'Start in Minutes',
@@ -220,7 +234,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'Add your API key' },
         { index: '03', text: 'Open a project and start coding' },
       ],
-      footerText: 'No agent setup required. Advanced configuration is optional.',
+      footerText: 'No agent setup — ready out of the box.',
     },
   },
   zh: {
@@ -230,8 +244,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc 开箱即用，首次启动即可进入熟悉的 AI 编程工作流，无需复杂配置。',
       '只需一个 API Key 即可开始。需要更强大的能力时，再根据项目需求定制模型、Agent、记忆和扩展。',
     ],
-    primaryCta: { text: '下载 Windows 版', href: '/download/install.exe' },
-    secondaryCta: { text: '在 GitHub 上查看', href: GITHUB_REPO_URL },
+    primaryCta: { text: '下载 Windows 版', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: '校验下载',
+    copiedText: '已复制',
+    betaCtaText: '体验 Beta',
     taglineLines: ['简单，是默认体验。', '强大，由你按需开启。'],
     rightCard: {
       title: '快速上手',
@@ -240,7 +258,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: '添加你的 API Key' },
         { index: '03', text: '打开项目，开始编程' },
       ],
-      footerText: '无需预先配置 Agent，高级功能按需开启。',
+      footerText: '无需配置 Agent，开箱即用。',
     },
   },
   es: {
@@ -250,8 +268,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc está listo desde el primer inicio, con una experiencia de codificación con IA familiar y valores predeterminados sensatos.',
       'Empiece con una única clave de API. Personalice modelos, agentes, memoria y extensiones solo cuando su proyecto exija un mayor control.',
     ],
-    primaryCta: { text: 'Descargar para Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Ver en GitHub', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Descargar para Windows', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Verificar la descarga',
+    copiedText: 'Copiado',
+    betaCtaText: 'Probar la beta',
     taglineLines: ['Simple por defecto.', 'Potente si así lo elige.'],
     rightCard: {
       title: 'Empiece en minutos',
@@ -260,7 +282,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'Añada su clave de API' },
         { index: '03', text: 'Abra un proyecto y empiece a programar' },
       ],
-      footerText: 'No requiere configuración de agentes. La configuración avanzada es opcional.',
+      footerText: 'Sin configuración de agentes, listo para usar.',
     },
   },
   fr: {
@@ -270,8 +292,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc est prêt dès le premier lancement, avec une expérience de codage IA familière et des réglages par défaut judicieux.',
       'Commencez avec une seule clé API. Personnalisez modèles, agents, mémoire et extensions uniquement lorsque votre projet exige plus de contrôle.',
     ],
-    primaryCta: { text: 'Télécharger pour Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Voir sur GitHub', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Télécharger pour Windows', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Vérifier le téléchargement',
+    copiedText: 'Copié',
+    betaCtaText: 'Essayer la bêta',
     taglineLines: ['Simple par défaut.', 'Puissant si vous le choisissez.'],
     rightCard: {
       title: 'Commencez en quelques minutes',
@@ -280,7 +306,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'Ajoutez votre clé API' },
         { index: '03', text: 'Ouvrez un projet et commencez à coder' },
       ],
-      footerText: 'Aucune configuration d’agent requise. La configuration avancée est facultative.',
+      footerText: 'Aucune configuration requise, prêt à l’emploi.',
     },
   },
   de: {
@@ -290,8 +316,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc ist ab dem ersten Start einsatzbereit, mit einer vertrauten KI-Coding-Erfahrung und sinnvollen Standardeinstellungen.',
       'Beginne mit einem einzigen API-Schlüssel. Passe Modelle, Agents, Speicher und Erweiterungen nur an, wenn dein Projekt mehr Kontrolle braucht.',
     ],
-    primaryCta: { text: 'Für Windows herunterladen', href: '/download/install.exe' },
-    secondaryCta: { text: 'Auf GitHub ansehen', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Für Windows herunterladen', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Download verifizieren',
+    copiedText: 'Kopiert',
+    betaCtaText: 'Beta ausprobieren',
     taglineLines: ['Standardmäßig einfach.', 'Stark, wenn du es willst.'],
     rightCard: {
       title: 'In Minuten starten',
@@ -300,7 +330,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'API-Schlüssel hinzufügen' },
         { index: '03', text: 'Projekt öffnen und loslegen' },
       ],
-      footerText: 'Keine Agent-Einrichtung nötig. Erweiterte Konfiguration ist optional.',
+      footerText: 'Keine Agent-Einrichtung nötig, sofort einsatzbereit.',
     },
   },
   ja: {
@@ -310,8 +340,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc は最初の起動からすぐに使えます。慣れ親しんだ AI コーディング体験と、わかりやすい初期設定を備えています。',
       'まず API キーを 1 つ追加するだけ。モデル、エージェント、メモリ、拡張機能は、プロジェクトでもっと細かい制御が必要になったときにカスタマイズできます。',
     ],
-    primaryCta: { text: 'Windows 版をダウンロード', href: '/download/install.exe' },
-    secondaryCta: { text: 'GitHub で見る', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Windows 版をダウンロード', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'ダウンロードを検証',
+    copiedText: 'コピーしました',
+    betaCtaText: 'ベータ版を試す',
     taglineLines: ['デフォルトでシンプル。', '選べばパワフル。'],
     rightCard: {
       title: '数分で開始',
@@ -320,7 +354,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'API キーを追加' },
         { index: '03', text: 'プロジェクトを開いてコーディング開始' },
       ],
-      footerText: 'エージェントのセットアップは不要。高度な設定は必要に応じて。',
+      footerText: 'エージェント設定不要、そのまま使えます。',
     },
   },
   ko: {
@@ -330,8 +364,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc는 처음 실행하는 순간부터 사용할 준비가 되어 있습니다. 익숙한 AI 코딩 경험과 합리적인 기본 설정을 제공합니다.',
       'API 키 하나로 시작하세요. 모델, 에이전트, 메모리, 확장 기능은 프로젝트에서 더 많은 제어가 필요할 때만 맞춤 설정하면 됩니다.',
     ],
-    primaryCta: { text: 'Windows용 다운로드', href: '/download/install.exe' },
-    secondaryCta: { text: 'GitHub에서 보기', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Windows용 다운로드', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: '다운로드 검증',
+    copiedText: '복사됨',
+    betaCtaText: '베타 사용해 보기',
     taglineLines: ['기본은 단순하게.', '선택하면 강력하게.'],
     rightCard: {
       title: '몇 분 만에 시작',
@@ -340,7 +378,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'API 키 추가' },
         { index: '03', text: '프로젝트를 열고 코딩 시작' },
       ],
-      footerText: '에이전트 설정이 필요 없습니다. 고급 구성은 선택 사항입니다.',
+      footerText: '에이전트 설정 없이 바로 사용 가능합니다.',
     },
   },
   bn: {
@@ -350,8 +388,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc প্রথম চালু থেকেই প্রস্তুত, পরিচিত AI কোডিং অভিজ্ঞতা এবং যুক্তিসঙ্গত ডিফল্ট সেটিংসসহ।',
       'একটি API কী দিয়ে শুরু করুন। আপনার প্রকল্পে আরও নিয়ন্ত্রণের প্রয়োজন হলে তবেই মডেল, এজেন্ট, মেমোরি এবং এক্সটেনশন কাস্টমাইজ করুন।',
     ],
-    primaryCta: { text: 'Windows-এর জন্য ডাউনলোড', href: '/download/install.exe' },
-    secondaryCta: { text: 'GitHub-এ দেখুন', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Windows-এর জন্য ডাউনলোড', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'ডাউনলোড যাচাই করুন',
+    copiedText: 'কপি হয়েছে',
+    betaCtaText: 'বিটা চেষ্টা করুন',
     taglineLines: ['ডিফল্টে সহজ।', 'ইচ্ছায় শক্তিশালী।'],
     rightCard: {
       title: 'মিনিটেই শুরু',
@@ -360,7 +402,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'আপনার API কী যোগ করুন' },
         { index: '03', text: 'একটি প্রকল্প খুলে কোডিং শুরু করুন' },
       ],
-      footerText: 'কোনো এজেন্ট সেটআপ প্রয়োজন নেই। উন্নত কনফিগারেশন ঐচ্ছিক।',
+      footerText: 'কোনো এজেন্ট সেটআপ নেই, সরাসরি ব্যবহারযোগ্য।',
     },
   },
   hi: {
@@ -370,8 +412,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc पहले लॉन्च से ही तैयार है, परिचित AI कोडिंग अनुभव और समझदार डिफ़ॉल्ट सेटिंग्स के साथ।',
       'सिर्फ़ एक API कुंजी से शुरू करें। मॉडल, एजेंट, मेमोरी और एक्सटेंशन तभी कस्टमाइज़ करें जब आपके प्रोजेक्ट को अधिक नियंत्रण की ज़रूरत हो।',
     ],
-    primaryCta: { text: 'Windows के लिए डाउनलोड करें', href: '/download/install.exe' },
-    secondaryCta: { text: 'GitHub पर देखें', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Windows के लिए डाउनलोड करें', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'डाउनलोड सत्यापित करें',
+    copiedText: 'कॉपी हो गया',
+    betaCtaText: 'बीटा आज़माएँ',
     taglineLines: ['डिफ़ॉल्ट रूप से सरल।', 'चुनने पर शक्तिशाली।'],
     rightCard: {
       title: 'मिनटों में शुरू करें',
@@ -380,7 +426,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'अपनी API कुंजी जोड़ें' },
         { index: '03', text: 'प्रोजेक्ट खोलें और कोडिंग शुरू करें' },
       ],
-      footerText: 'एजेंट सेटअप की आवश्यकता नहीं। उन्नत कॉन्फ़िगरेशन वैकल्पिक है।',
+      footerText: 'कोई एजेंट सेटअप नहीं, सीधे इस्तेमाल करें।',
     },
   },
   pt: {
@@ -390,8 +436,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'O Velloc está pronto desde o primeiro início, com uma experiência de codificação com IA familiar e configurações padrão sensatas.',
       'Comece com uma única chave de API. Personalize modelos, agentes, memória e extensões apenas quando o seu projeto exigir mais controle.',
     ],
-    primaryCta: { text: 'Baixar para Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Ver no GitHub', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Baixar para Windows', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Verificar o download',
+    copiedText: 'Copiado',
+    betaCtaText: 'Experimentar a beta',
     taglineLines: ['Simples por padrão.', 'Poderoso por escolha.'],
     rightCard: {
       title: 'Comece em minutos',
@@ -400,7 +450,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'Adicione sua chave de API' },
         { index: '03', text: 'Abra um projeto e comece a programar' },
       ],
-      footerText: 'Nenhuma configuração de agente necessária. A configuração avançada é opcional.',
+      footerText: 'Nenhuma configuração de agente, pronto para usar.',
     },
   },
   ru: {
@@ -410,8 +460,12 @@ export const heroConfig: Record<Lang, HeroConfig> = {
       'Velloc готов к работе с первого запуска: привычный опыт ИИ-кодирования и разумные настройки по умолчанию.',
       'Начните с одного API-ключа. Настраивайте модели, агентов, память и расширения только тогда, когда ваш проект требует большего контроля.',
     ],
-    primaryCta: { text: 'Скачать для Windows', href: '/download/install.exe' },
-    secondaryCta: { text: 'Смотреть на GitHub', href: GITHUB_REPO_URL },
+    primaryCta: { text: 'Скачать для Windows', href: '/download/VellocSetup.exe' },
+    secondaryCta: { text: 'GitHub', href: GITHUB_REPO_URL },
+    versionTemplate: '{version} · Windows',
+    verifyCtaText: 'Проверить загрузку',
+    copiedText: 'Скопировано',
+    betaCtaText: 'Попробовать бета-версию',
     taglineLines: ['Просто по умолчанию.', 'Мощно по вашему выбору.'],
     rightCard: {
       title: 'Начало за несколько минут',
@@ -420,7 +474,7 @@ export const heroConfig: Record<Lang, HeroConfig> = {
         { index: '02', text: 'Добавьте свой API-ключ' },
         { index: '03', text: 'Откройте проект и начните кодировать' },
       ],
-      footerText: 'Настройка агента не требуется. Расширенная конфигурация — по желанию.',
+      footerText: 'Без настройки агента, готов из коробки.',
     },
   },
 };
@@ -459,7 +513,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         detailTitle: 'Start with the defaults',
         detail:
           'Open a project and begin coding immediately. Advanced configuration stays out of the way until you need it.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -520,7 +574,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: '打开项目，即刻开始编程。',
         detailTitle: '从默认配置开始',
         detail: '打开项目，即刻开始编程。无需预先设置，高级功能需要时再开启。',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -576,7 +630,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'Abra un proyecto y comience a trabajar de inmediato.',
         detailTitle: 'Empiece con los valores predeterminados',
         detail: 'Abra un proyecto y comience a programar de inmediato. La configuración avanzada se mantiene oculta hasta que la necesite.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -632,7 +686,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'Ouvrez un projet et travaillez immédiatement.',
         detailTitle: 'Commencez avec les réglages par défaut',
         detail: 'Ouvrez un projet et commencez à coder immédiatement. La configuration avancée reste discrète jusqu’à ce que vous en ayez besoin.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -688,7 +742,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'Öffne ein Projekt und arbeite sofort los.',
         detailTitle: 'Mit den Standardeinstellungen starten',
         detail: 'Öffne ein Projekt und beginne sofort mit dem Coding. Erweiterte Konfiguration bleibt im Hintergrund, bis du sie brauchst.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -743,7 +797,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'プロジェクトを開いて、すぐに作業を始められます。',
         detailTitle: '初期設定のまま始める',
         detail: 'プロジェクトを開いて、すぐにコーディングを開始。高度な設定は必要なときまで邪魔になりません。',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -798,7 +852,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: '프로젝트를 열고 바로 작업을 시작하세요.',
         detailTitle: '기본 설정으로 시작',
         detail: '프로젝트를 열고 바로 코딩을 시작하세요. 고급 구성은 필요할 때까지 방해하지 않습니다.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -853,7 +907,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'একটি প্রকল্প খুলে সঙ্গে সঙ্গে কাজ শুরু করুন।',
         detailTitle: 'ডিফল্ট সেটিংস দিয়ে শুরু',
         detail: 'একটি প্রকল্প খুলে সঙ্গে সঙ্গে কোডিং শুরু করুন। উন্নত কনফিগারেশন আপনার প্রয়োজন না হওয়া পর্যন্ত আড়ালে থাকে।',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -908,7 +962,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'प्रोजेक्ट खोलें और तुरंत काम शुरू करें।',
         detailTitle: 'डिफ़ॉल्ट सेटिंग्स से शुरू करें',
         detail: 'प्रोजेक्ट खोलें और तुरंत कोडिंग शुरू करें। उन्नत कॉन्फ़िगरेशन तब तक रास्ते से हटकर रहता है जब तक आपको ज़रूरत न पड़े।',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -964,7 +1018,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'Abra um projeto e comece a trabalhar imediatamente.',
         detailTitle: 'Comece com as configurações padrão',
         detail: 'Abra um projeto e comece a codificar imediatamente. A configuração avançada fica fora do caminho até você precisar dela.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -1020,7 +1074,7 @@ export const featuresConfig: Record<Lang, FeaturesConfig> = {
         description: 'Откройте проект и сразу приступайте к работе.',
         detailTitle: 'Начните с настроек по умолчанию',
         detail: 'Откройте проект и сразу приступайте к кодированию. Расширенная конфигурация не мешает, пока она не нужна.',
-        learnMore: '/download/install.exe',
+        learnMore: '/download/VellocSetup.exe',
       },
       {
         id: 'choose-model',
@@ -1685,7 +1739,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   en: {
     heading: 'Start simple. Build your way.',
     subtitle: 'Use Velloc out of the box, then customize only what your project needs.',
-    primaryCta: { text: 'Download Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: 'Download Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Product',
@@ -1693,7 +1747,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Features', href: '#features' },
           { label: 'Models', href: '#models' },
           { label: 'Extensions', href: '#marketplace' },
-          { label: 'Download', href: '/download/install.exe' },
+          { label: 'Download', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1716,7 +1770,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   zh: {
     heading: '轻松上手，自由构建。',
     subtitle: 'Velloc 开箱即用，也可根据项目需要逐步定制。',
-    primaryCta: { text: '下载 Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: '下载 Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: '产品',
@@ -1724,7 +1778,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: '功能', href: '#features' },
           { label: '模型', href: '#models' },
           { label: '扩展', href: '#marketplace' },
-          { label: '下载', href: '/download/install.exe' },
+          { label: '下载', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1747,7 +1801,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   es: {
     heading: 'Empiece con lo esencial. Construya a su manera.',
     subtitle: 'Use Velloc tal como viene y personalice solo lo que su proyecto necesite.',
-    primaryCta: { text: 'Descargar Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: 'Descargar Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Producto',
@@ -1755,7 +1809,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Características', href: '#features' },
           { label: 'Modelos', href: '#models' },
           { label: 'Extensiones', href: '#marketplace' },
-          { label: 'Descargar', href: '/download/install.exe' },
+          { label: 'Descargar', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1778,7 +1832,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   fr: {
     heading: 'Commencez simplement. Construisez à votre façon.',
     subtitle: 'Utilisez Velloc tel quel, puis personnalisez uniquement ce dont votre projet a besoin.',
-    primaryCta: { text: 'Télécharger Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: 'Télécharger Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Produit',
@@ -1786,7 +1840,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Fonctionnalités', href: '#features' },
           { label: 'Modèles', href: '#models' },
           { label: 'Extensions', href: '#marketplace' },
-          { label: 'Télécharger', href: '/download/install.exe' },
+          { label: 'Télécharger', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1809,7 +1863,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   de: {
     heading: 'Einfach starten. Auf deine Art bauen.',
     subtitle: 'Nutze Velloc direkt nach der Installation und passe nur an, was dein Projekt braucht.',
-    primaryCta: { text: 'Velloc Code herunterladen', href: '/download/install.exe' },
+    primaryCta: { text: 'Velloc Code herunterladen', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Produkt',
@@ -1817,7 +1871,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Funktionen', href: '#features' },
           { label: 'Modelle', href: '#models' },
           { label: 'Erweiterungen', href: '#marketplace' },
-          { label: 'Herunterladen', href: '/download/install.exe' },
+          { label: 'Herunterladen', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1840,7 +1894,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   ja: {
     heading: 'シンプルに始めて、自由に構築。',
     subtitle: 'Velloc をそのまま使って、プロジェクトに必要なものだけカスタマイズしましょう。',
-    primaryCta: { text: 'Velloc Code をダウンロード', href: '/download/install.exe' },
+    primaryCta: { text: 'Velloc Code をダウンロード', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: '製品',
@@ -1848,7 +1902,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: '機能', href: '#features' },
           { label: 'モデル', href: '#models' },
           { label: '拡張機能', href: '#marketplace' },
-          { label: 'ダウンロード', href: '/download/install.exe' },
+          { label: 'ダウンロード', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1871,7 +1925,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   ko: {
     heading: '간단하게 시작하고, 자신만의 방식으로 구축하세요.',
     subtitle: 'Velloc를 설치 즉시 사용하고, 프로젝트에 필요한 부분만 맞춤 설정하세요.',
-    primaryCta: { text: 'Velloc Code 다운로드', href: '/download/install.exe' },
+    primaryCta: { text: 'Velloc Code 다운로드', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: '제품',
@@ -1879,7 +1933,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: '기능', href: '#features' },
           { label: '모델', href: '#models' },
           { label: '확장 기능', href: '#marketplace' },
-          { label: '다운로드', href: '/download/install.exe' },
+          { label: '다운로드', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1902,7 +1956,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   bn: {
     heading: 'সহজে শুরু করুন। আপনার মতো করে গড়ুন।',
     subtitle: 'Velloc সরাসরি ব্যবহার করুন, তারপর আপনার প্রকল্পের প্রয়োজন অনুযায়ী কাস্টমাইজ করুন।',
-    primaryCta: { text: 'Velloc Code ডাউনলোড করুন', href: '/download/install.exe' },
+    primaryCta: { text: 'Velloc Code ডাউনলোড করুন', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'পণ্য',
@@ -1910,7 +1964,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'বৈশিষ্ট্য', href: '#features' },
           { label: 'মডেল', href: '#models' },
           { label: 'এক্সটেনশন', href: '#marketplace' },
-          { label: 'ডাউনলোড', href: '/download/install.exe' },
+          { label: 'ডাউনলোড', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1933,7 +1987,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   hi: {
     heading: 'सरलता से शुरू करें। अपने तरीके से बनाएँ।',
     subtitle: 'Velloc का उपयोग ऐसे ही करें, फिर केवल वही कस्टमाइज़ करें जो आपके प्रोजेक्ट को चाहिए।',
-    primaryCta: { text: 'Velloc Code डाउनलोड करें', href: '/download/install.exe' },
+    primaryCta: { text: 'Velloc Code डाउनलोड करें', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'उत्पाद',
@@ -1941,7 +1995,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'विशेषताएँ', href: '#features' },
           { label: 'मॉडल', href: '#models' },
           { label: 'एक्सटेंशन', href: '#marketplace' },
-          { label: 'डाउनलोड', href: '/download/install.exe' },
+          { label: 'डाउनलोड', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1964,7 +2018,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   pt: {
     heading: 'Comece simples. Construa do seu jeito.',
     subtitle: 'Use o Velloc pronto para uso e personalize apenas o que o seu projeto precisa.',
-    primaryCta: { text: 'Baixar Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: 'Baixar Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Produto',
@@ -1972,7 +2026,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Recursos', href: '#features' },
           { label: 'Modelos', href: '#models' },
           { label: 'Extensões', href: '#marketplace' },
-          { label: 'Baixar', href: '/download/install.exe' },
+          { label: 'Baixar', href: '/download/VellocSetup.exe' },
         ],
       },
       {
@@ -1995,7 +2049,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
   ru: {
     heading: 'Начните с простого. Стройте по-своему.',
     subtitle: 'Используйте Velloc сразу после установки, а затем настраивайте только то, что нужно вашему проекту.',
-    primaryCta: { text: 'Скачать Velloc Code', href: '/download/install.exe' },
+    primaryCta: { text: 'Скачать Velloc Code', href: '/download/VellocSetup.exe' },
     columns: [
       {
         title: 'Продукт',
@@ -2003,7 +2057,7 @@ export const footerConfig: Record<Lang, FooterConfig> = {
           { label: 'Возможности', href: '#features' },
           { label: 'Модели', href: '#models' },
           { label: 'Расширения', href: '#marketplace' },
-          { label: 'Скачать', href: '/download/install.exe' },
+          { label: 'Скачать', href: '/download/VellocSetup.exe' },
         ],
       },
       {
