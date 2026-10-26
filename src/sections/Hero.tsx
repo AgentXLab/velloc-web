@@ -16,7 +16,9 @@ function useShaDigest(releaseUrl: string, assetName: string): { version: string;
         const rel = await (await fetch(releaseUrl)).json();
         const raw = rel.assets?.find((a: { name?: string }) => a.name === assetName)?.digest;
         if (typeof raw !== 'string' || !raw.startsWith('sha256:')) return;
-        if (!cancelled) setDigest({ version: rel.tag_name, hash: raw.slice(7) });
+        if (!cancelled) {
+          setDigest({ version: rel.tag_name.replace(/^velloc-v?|^v/, ''), hash: raw.slice(7) });
+        }
       } catch {
         /* keep it hidden */
       }
@@ -290,54 +292,51 @@ export default function Hero() {
                 {heroConfig.primaryCta.text}
               </a>
 
-              {/* Compact version line; checksum tucked into an expandable row */}
+              {/* One line: 'v1.155.2.2 · SHA-256 >' — the label toggles the checksum */}
               {digest && (
                 <div style={{ width: '100%', marginTop: 12 }}>
                   <p
                     style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
                       fontFamily: "'Fira Code', monospace",
                       fontWeight: 400,
                       fontSize: 11,
                       letterSpacing: '0.2px',
                       color: 'rgba(230, 230, 230, 0.6)',
                       margin: 0,
-                      textAlign: 'center',
                     }}
                   >
                     {interpolate(heroConfig.versionTemplate, { version: digest.version })}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setShowSha((v) => !v)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 5,
-                      width: '100%',
-                      marginTop: 6,
-                      padding: 0,
-                      background: 'none',
-                      border: 'none',
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: 300,
-                      fontSize: 12,
-                      letterSpacing: '0.3px',
-                      color: 'rgba(218, 218, 218, 0.55)',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {heroConfig.verifyCtaText}
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2}
-                      aria-hidden="true"
+                    <button
+                      type="button"
+                      onClick={() => setShowSha((v) => !v)}
+                      aria-expanded={showSha}
+                      aria-label={heroConfig.copiedText}
                       style={{
-                        transform: showSha ? 'rotate(180deg)' : 'none',
-                        transition: 'transform 0.2s ease',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        marginLeft: 6,
+                        padding: 0,
+                        background: 'none',
+                        border: 'none',
+                        color: 'rgba(218, 218, 218, 0.55)',
+                        cursor: 'pointer',
                       }}
-                    />
-                  </button>
+                    >
+                      <ChevronDown
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                        style={{
+                          transform: showSha ? 'rotate(180deg)' : 'rotate(-90deg)',
+                          transition: 'transform 0.2s ease',
+                        }}
+                      />
+                    </button>
+                  </p>
                   {showSha && (
                     <div
                       className="flex items-center"
@@ -357,7 +356,7 @@ export default function Hero() {
                       </code>
                       <button
                         type="button"
-                        aria-label={heroConfig.verifyCtaText}
+                        aria-label="Copy SHA-256"
                         onClick={async () => {
                           try {
                             await navigator.clipboard.writeText(digest.hash);
